@@ -391,6 +391,11 @@ img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
 .tr-note{font-size:clamp(.64rem,1vw,.76rem); opacity:.9; margin-top:.15rem; white-space:nowrap;}
 @media (max-width:820px){ .tr-tier{width:100%!important;} }
 
+.gcard-icon{width:48px; height:48px; color:var(--accent); margin:0 0 10px;}
+.gcard-icon svg{width:100%; height:100%; display:block;}
+.grid.cols-5{grid-template-columns:repeat(5,1fr);}
+@media (max-width:820px){ .grid.cols-5{grid-template-columns:1fr 1fr;} }
+
 
 /* announcements / upcoming assignments */
 .slide[data-type="announce"]{background:linear-gradient(160deg,#f7faf8,#eaf1ed);}
@@ -880,7 +885,7 @@ img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
     <div class="eyebrow">3.4 · What Is Energy?</div>
     <h2 class="heading">Forms and Transformations of Energy</h2>
     <p class="lead center">Energy is the capacity to do work. Kinetic energy is the energy of motion; potential energy is stored, awaiting release.</p>
-    <div class="grid cols-5"><div class="gcard"><div class="gcard-head">Chemical</div><div class="gcard-desc">Stored in molecular bonds; released when bonds break — combustion, respiration.</div></div><div class="gcard"><div class="gcard-head">Radiant</div><div class="gcard-desc">Sunlight — the ultimate energy source for almost all life on Earth.</div></div><div class="gcard"><div class="gcard-head">Thermal</div><div class="gcard-desc">From molecular motion. Temperature measures how vigorously atoms are moving.</div></div><div class="gcard"><div class="gcard-head">Electrical</div><div class="gcard-desc">Moving electrons carried along a wire or other conductor.</div></div><div class="gcard"><div class="gcard-head">Mechanical</div><div class="gcard-desc">Energy used by machines to perform tasks.</div></div></div>
+    <div class="grid cols-5"><div class="gcard"><div class="gcard-icon"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="31" r="6"/><circle cx="16" cy="19" r="5"/><circle cx="48" cy="19" r="5"/><circle cx="32" cy="51" r="5"/><path d="M27.2 27.4 20 22"/><path d="M36.8 27.4 44 22"/><path d="M30.3 37V46"/><path d="M33.7 37V46"/></svg></div><div class="gcard-head">Chemical</div><div class="gcard-desc">Stored in molecular bonds; released when bonds break — combustion, respiration.</div></div><div class="gcard"><div class="gcard-icon"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="9"/><path d="M32 18V9M32 46v9M18 32H9M46 32h9"/><path d="M22.1 22.1 15.7 15.7M41.9 22.1 48.3 15.7M22.1 41.9 15.7 48.3M41.9 41.9 48.3 48.3"/></svg></div><div class="gcard-head">Radiant</div><div class="gcard-desc">Sunlight — the ultimate energy source for almost all life on Earth.</div></div><div class="gcard"><div class="gcard-icon"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="27" cy="46" r="7"/><path d="M23 43V16a4 4 0 0 1 8 0v27"/><path d="M27 44V29"/><path d="M44 24c2.6 2 2.6 4.6 0 6.6s-2.6 4.6 0 6.6"/><path d="M50 22c2.6 2 2.6 4.6 0 6.6s-2.6 4.6 0 6.6"/></svg></div><div class="gcard-head">Thermal</div><div class="gcard-desc">From molecular motion. Temperature measures how vigorously atoms are moving.</div></div><div class="gcard"><div class="gcard-icon"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M35 8 19 35h11l-4 21 20-30H30z"/><path d="M48 14 53 11"/><path d="M50 22 55 21"/></svg></div><div class="gcard-head">Electrical</div><div class="gcard-desc">Moving electrons carried along a wire or other conductor.</div></div><div class="gcard"><div class="gcard-icon"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="25" cy="30" r="9"/><circle cx="25" cy="30" r="3.3"/><path d="M34 30 37 30M31.4 36.4 33.5 38.5M25 39 25 42M18.6 36.4 16.5 38.5M16 30 13 30M18.6 23.6 16.5 21.5M25 21 25 18M31.4 23.6 33.5 21.5"/><circle cx="42" cy="41" r="7"/><circle cx="42" cy="41" r="2.6"/><path d="M49 41 51.5 41M45.5 47.1 46.8 49.2M38.5 47.1 37.3 49.2M35 41 32.5 41M38.5 34.9 37.3 32.8M45.5 34.9 46.8 32.8"/></svg></div><div class="gcard-head">Mechanical</div><div class="gcard-desc">Energy used by machines to perform tasks.</div></div></div>
   </div>
   <div class="footer">© 2023 W. W. Norton &amp; Company, Inc.</div>
 </section>
@@ -921,9 +926,9 @@ img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
     <div class="embed-head-text">
       <div class="eyebrow">3.5 · Thermodynamics in Action</div>
       <h2 class="embed-title">Vehicle Energy Flow — the First Law at Work</h2>
-      <div class="embed-sub">Trace a vehicle's energy: chemical energy in fuel → mechanical work, with the rest lost as heat. Adjust the inputs and watch energy split — nothing is created or destroyed (First Law), and no conversion is 100% efficient (Second Law). Can anything be 100% efficient? How do these laws shape transportation systems?</div>
+      <div class="embed-sub">Adjust the inputs and watch the fuel's energy split into motion and heat — nothing created or destroyed (First Law), nothing 100% efficient (Second Law).</div>
     </div>
-    <a class="embed-open" href="https://ryanpcornell.github.io/energy/" target="_blank" rel="noopener">Open full calculator ↗</a>
+    
   </div>
   <div class="embed-wrap">
     <iframe class="embed-frame" data-src="https://ryanpcornell.github.io/energy/" title="Vehicle Energy Flow — the First Law at Work" loading="lazy"></iframe>
