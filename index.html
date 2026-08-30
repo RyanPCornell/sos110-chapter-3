@@ -16,6 +16,12 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
+/* Master type scale. Everything in this stylesheet is sized in rem, so this one
+   number makes the whole deck bigger or smaller together. It is set above 100%
+   so the text carries to the back of a lecture hall; a deck that runs out of
+   room on a dense slide can dial it back with `html{font-size:…}` in its own
+   EXTRA_CSS. */
+html{font-size:112%;}
 body{
   font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
   color:var(--ink); background:#0c1411; overflow:hidden;
@@ -50,14 +56,39 @@ h1,h2,h3,.heading{font-family:'Merriweather',Georgia,serif;}
 .bullets li::before{content:""; position:absolute; left:0; top:.5em; width:.5rem; height:.5rem;
   border-radius:50%; background:var(--accent,var(--green-light));}
 .bullets li strong{color:var(--forest);}
-.note{margin-top:1.1rem; padding:.7rem .95rem; background:var(--pale); border-left:3px solid var(--green);
+/* works-cited small print (content_slide refs=): sits under the content, set
+   small and muted with a hairline rule and a hanging indent, so a real citation
+   can appear on the slide without competing with the teaching text */
+.refs{margin-top:.9rem; padding-top:.5rem; border-top:1px solid var(--line);}
+/* a cited slide carries an extra block, so tighten its rhythm to keep the
+   citation above the fold on a 16:9 projector */
+.slide.has-refs .bullets{gap:.5rem;}
+.slide.has-refs .lead{margin-bottom:.8rem;}
+.slide.has-refs .heading{margin-bottom:.75rem;}
+.refs p{font-size:clamp(.6rem,.92vw,.72rem); line-height:1.4; color:var(--muted);
+  padding-left:1.15em; text-indent:-1.15em; margin-top:.3rem;}
+.refs p:first-child{margin-top:0;}
+.refs em{font-style:italic;}
+/* sub-bullet (authored as "- text"): indented under its parent, a shade smaller,
+   hollow marker so the hierarchy reads at projector distance */
+.bullets li.sub{padding-left:3rem; font-size:clamp(.82rem,1.32vw,.95rem); color:#48594f;
+  margin-top:-.25rem;}
+.bullets li.sub::before{left:1.55rem; top:.55em; width:.42rem; height:.42rem;
+  background:transparent; border:2px solid var(--accent,var(--green-light));}
+/* staged reveal (content_slide staged=True): fade each item in on a clicker
+   press. Opacity, not display, so the space is reserved up front and nothing
+   reflows as items appear. */
+.stage-item{opacity:0; transition:opacity .3s ease;}
+.stage-item.shown{opacity:1;}
+@media (prefers-reduced-motion:reduce){ .stage-item{transition:none;} }
+.note{margin-top:.85rem; padding:.62rem .95rem; background:var(--pale); border-left:3px solid var(--green);
   border-radius:0 8px 8px 0; font-size:clamp(.8rem,1.25vw,.92rem); color:#3a4a43; font-style:italic;}
 .col-media{height:100%; display:flex; align-items:center;}
 .col-media img{width:100%; height:auto; max-height:74vh; object-fit:cover; border-radius:16px; box-shadow:var(--shadow);}
 
 /* pairs */
-.pairs{display:flex; flex-direction:column; gap:.6rem;}
-.pair{background:var(--pale); border:1px solid var(--line); border-radius:12px; padding:.7rem .95rem;}
+.pairs{display:flex; flex-direction:column; gap:.5rem;}
+.pair{background:var(--pale); border:1px solid var(--line); border-radius:12px; padding:.62rem .95rem;}
 .pair-head{font-weight:700; color:var(--forest); font-size:clamp(.86rem,1.4vw,1rem);}
 .pair-desc{font-size:clamp(.8rem,1.3vw,.95rem); color:#3a4a43; line-height:1.4; margin-top:.15rem;}
 
@@ -511,6 +542,15 @@ img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
   font-family:inherit; font-size:.84rem; font-weight:700; padding:.5rem 1.05rem; border-radius:9px; cursor:pointer;}
 .poll-reveal:hover{filter:brightness(1.08);}
 .poll-reveal ~ .poll-reset{margin-left:.6rem;}
+/* staged options (poll_slide(staged=True)): revealed one at a time by the host */
+.poll-opt.pending{display:none;}
+.poll-opt.just-in{animation:pollslide .34s cubic-bezier(.2,1.2,.4,1);}
+@keyframes pollslide{from{transform:translateY(14px); opacity:0;} to{transform:translateY(0); opacity:1;}}
+.poll-stage{margin-left:auto; background:var(--accent); border:1.5px solid var(--accent); color:#fff;
+  font-family:inherit; font-size:.84rem; font-weight:700; padding:.5rem 1.05rem; border-radius:9px; cursor:pointer;}
+.poll-stage:hover{filter:brightness(1.08);}
+.poll-stage:disabled{background:#fff; color:var(--muted); border-color:var(--line); cursor:default; filter:none;}
+.poll-stage ~ .poll-reveal,.poll-stage ~ .poll-reset{margin-left:.6rem;}
 .poll-answer{display:flex; justify-content:center; align-items:center; text-align:center;
   max-width:1060px; width:100%; margin:0 auto clamp(.4rem,1.4vh,.9rem); min-height:0;}
 .poll-answer[hidden]{display:none;}
@@ -583,7 +623,7 @@ img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
       <h2 class="heading">Upcoming Assignments</h2>
       <p class="an-sub">Here's what's on deck. Check Canvas for full instructions and submission links.</p>
     </div>
-    <div class="an-list"><div class="an-row"><span class="an-num">1</span><div class="an-main"><div class="an-name">InQuizitive: Chapter 3 — Matter and Energy</div><div class="an-detail">Norton adaptive practice for this chapter.</div></div><div class="an-due tba"><span class="an-due-lbl">Due</span><span class="an-due-val">TBA</span></div></div><div class="an-row"><span class="an-num">2</span><div class="an-main"><div class="an-name">InQuizitive: Chapter 4 — Life: What Shapes Biodiversity?</div><div class="an-detail">Norton adaptive practice for Chapter 4.</div></div><div class="an-due tba"><span class="an-due-lbl">Due</span><span class="an-due-val">TBA</span></div></div><div class="an-row"><span class="an-num">3</span><div class="an-main"><div class="an-name">InQuizitive: Chapter 5 — Conservation: Why Is It Important to Protect Biodiversity?</div><div class="an-detail">Norton adaptive practice for Chapter 5.</div></div><div class="an-due tba"><span class="an-due-lbl">Due</span><span class="an-due-val">TBA</span></div></div><div class="an-row"><span class="an-num">4</span><div class="an-main"><div class="an-name">Module 2: Biomimicry Quiz (Canvas)</div><div class="an-detail">Quiz on the Module 2 biomimicry material — on Canvas.</div></div><div class="an-due tba"><span class="an-due-lbl">Due</span><span class="an-due-val">TBA</span></div></div><div class="an-row"><span class="an-num">5</span><div class="an-main"><div class="an-name">What Would You Do? Exercise #1 (Harmonize)</div><div class="an-detail">Applied decision-making exercise.</div></div><div class="an-due tba"><span class="an-due-lbl">Due</span><span class="an-due-val">TBA</span></div></div><div class="an-row"><span class="an-num">6</span><div class="an-main"><div class="an-name">Review Exercise #1 (in class)</div><div class="an-detail">In-class review activity.</div></div><div class="an-due tba"><span class="an-due-lbl">Due</span><span class="an-due-val">TBA</span></div></div></div>
+    <div class="an-list"><div class="an-row"><span class="an-num">1</span><div class="an-main"><div class="an-name">InQuizitive: Chapter 3 — Matter and Energy</div><div class="an-detail">Norton adaptive practice for this chapter.</div></div></div><div class="an-row"><span class="an-num">2</span><div class="an-main"><div class="an-name">InQuizitive: Chapter 4 — Life: What Shapes Biodiversity?</div><div class="an-detail">Norton adaptive practice for Chapter 4.</div></div></div><div class="an-row"><span class="an-num">3</span><div class="an-main"><div class="an-name">InQuizitive: Chapter 5 — Conservation: Why Is It Important to Protect Biodiversity?</div><div class="an-detail">Norton adaptive practice for Chapter 5.</div></div></div><div class="an-row"><span class="an-num">4</span><div class="an-main"><div class="an-name">Module 2: Biomimicry Quiz (Canvas)</div><div class="an-detail">Quiz on the Module 2 biomimicry material — on Canvas.</div></div></div><div class="an-row"><span class="an-num">5</span><div class="an-main"><div class="an-name">What Would You Do? Exercise #1 (Harmonize)</div><div class="an-detail">Applied decision-making exercise.</div></div></div><div class="an-row"><span class="an-num">6</span><div class="an-main"><div class="an-name">Review Exercise #1 (in class)</div><div class="an-detail">In-class review activity.</div></div></div></div>
     <p class="an-note">Due dates to be announced — mark your calendar once they're posted.</p>
     
   </div>
@@ -869,7 +909,7 @@ img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
 <h2 class="heading">The Laws of Thermodynamics</h2>
       </div>
       <div class="stack-body">
-<div class="pairs"><div class="pair"><div class="pair-head">First Law</div><div class="pair-desc">Energy cannot be created or destroyed — only transformed. The total energy of an isolated system is constant.</div></div><div class="pair"><div class="pair-head">Second Law</div><div class="pair-desc">With each energy transfer, some is degraded as heat, increasing entropy (disorder). No conversion is 100% efficient.</div></div><div class="pair"><div class="pair-head">Entropy</div><div class="pair-desc">The tendency of any isolated system to become more disordered over time — which is why we constantly need new energy inputs.</div></div></div>
+<div class="pairs"><div class="pair"><div class="pair-head">First Law</div><div class="pair-desc">Energy cannot be created or destroyed — only transformed. The energy is conserved and the total energy of an isolated system is constant.</div></div><div class="pair"><div class="pair-head">Second Law</div><div class="pair-desc">With each energy transfer, some is degraded as heat, increasing entropy (disorder). No conversion is 100% efficient.</div></div><div class="pair"><div class="pair-head">Entropy</div><div class="pair-desc">The tendency of any isolated system to become more disordered over time — which is why we constantly need new energy inputs.</div></div></div>
       </div>
     </div>
     <div class="stack-media contain"><img src="media/image15.jpg" alt=""></div>
@@ -1025,7 +1065,14 @@ const progress = document.getElementById('progress');
 const counter  = document.getElementById('counter');
 const menu = document.getElementById('menu');
 
-function show(i){
+// ── staged reveals ─────────────────────────────────────────────────────────
+// A slide can hold .stage-item elements that the clicker uncovers one at a
+// time before moving on. Slides without them are unaffected.
+function stageItems(s){ return Array.prototype.slice.call(s.querySelectorAll('.stage-item')); }
+function stageShown(s){ return stageItems(s).filter(function(e){ return e.classList.contains('shown'); }).length; }
+function setStage(s, n){ stageItems(s).forEach(function(e, i){ e.classList.toggle('shown', i < n); }); }
+
+function show(i, back){
   i = Math.max(0, Math.min(slides.length-1, i));
   slides[cur].classList.remove('active');
   cur = i;
@@ -1033,14 +1080,26 @@ function show(i){
   s.classList.add('active');
   const f = s.querySelector('iframe[data-src]');
   if(f && !f.src){ f.src = f.getAttribute('data-src'); }
+  // arriving forward starts a staged slide covered; stepping back into one
+  // shows everything, so you don't have to click through it again
+  const st = stageItems(s);
+  if(st.length){ setStage(s, back ? st.length : 0); }
   progress.style.width = ((cur+1)/slides.length*100)+'%';
   var ac = (getComputedStyle(s).getPropertyValue('--accent') || '').trim();
   progress.style.background = ac || 'var(--green-light)';
   counter.textContent = (cur+1)+' / '+slides.length;
   location.hash = 'slide-'+(cur+1);
 }
-function next(){ show(cur+1); }
-function prev(){ show(cur-1); }
+function next(){
+  const s = slides[cur], n = stageItems(s).length;
+  if(n){ const k = stageShown(s); if(k < n){ setStage(s, k + 1); return; } }
+  show(cur+1);
+}
+function prev(){
+  const s = slides[cur];
+  if(stageItems(s).length){ const k = stageShown(s); if(k > 0){ setStage(s, k - 1); return; } }
+  show(cur-1, true);
+}
 
 document.addEventListener('keydown', e=>{
   if(menu.classList.contains('open')){ if(e.key==='Escape') toggleMenu(false); return; }
@@ -1062,7 +1121,7 @@ const start = m ? (+m[1]-1) : 0;
 slides.forEach(s=>s.classList.remove('active'));
 show(start);
 </script>
-<script src="firebase-config.js"></script>
+<script src="firebase-config.js?v=e1671c74ba"></script>
 <script type="module">
 (async function(){
   const HOST = new URLSearchParams(location.search).has('host');
@@ -1237,12 +1296,13 @@ show(start);
     }
 
     let collapseReveal = function(){};  // set below if this poll has a reveal-able answer
+    let rewindStage = function(){};     // set below if this poll reveals options one at a time
 
     if(HOST){
       sec.classList.add('host');
       hintEl.textContent='Live results — students vote on their own screens.';
       resetBtn.hidden=false;
-      resetBtn.addEventListener('click', ()=>{ if(confirm('Reset all results for this question?')){ backend.reset('polls',id); collapseReveal(); } });
+      resetBtn.addEventListener('click', ()=>{ if(confirm('Reset all results for this question?')){ backend.reset('polls',id); collapseReveal(); rewindStage(); } });
     } else {
       lockIfVoted();
       opts.forEach(function(b,i){
@@ -1284,6 +1344,57 @@ show(start);
         revealBtn.hidden=false;
         revealBtn.addEventListener('click', ()=>setReveal(!shown));
         collapseReveal = ()=>setReveal(false);  // let "Reset results" also hide the answer
+      }
+    }
+
+    // optional STAGED options: the instructor uncovers one answer at a time and
+    // the stage index rides the same poll document, so every open copy of the
+    // deck reveals in step with the projector.
+    if(sec.dataset.pollStaged==='1'){
+      const stageBtn=sec.querySelector('[data-poll-stage]');
+      let stage=0, want=1;   // `want` is the host's own count, so pressing the
+                             // clicker fast never waits on a round trip
+      function applyStage(k){
+        k=Math.max(1, Math.min(n, k||1));
+        const grew = k>stage;
+        opts.forEach(function(b,i){
+          const pending = i>=k;
+          b.classList.toggle('pending', pending);
+          b.setAttribute('aria-hidden', pending?'true':'false');
+          if(grew && !pending && i>=stage){
+            b.classList.add('just-in');
+            setTimeout(()=>b.classList.remove('just-in'), 400);
+          }
+        });
+        stage=k;
+        if(stageBtn){
+          stageBtn.disabled = stage>=n;
+          stageBtn.textContent = stage>=n ? 'All options showing' : 'Show next option ('+stage+'/'+n+')';
+        }
+      }
+      applyStage(1);
+      backend.subscribeDoc('polls', id, function(d){
+        let k=(d&&d.stage)||1;
+        if(HOST) k=Math.max(k, want);   // don't let a stale snapshot re-cover an option
+        applyStage(k);
+      });
+      if(HOST){
+        stageBtn.hidden=false;
+        const bump=function(){
+          if(want>=n) return;
+          want++; applyStage(want); backend.mergeDoc('polls', id, {stage: want});
+        };
+        stageBtn.addEventListener('click', bump);
+        rewindStage = function(){ want=1; applyStage(1); backend.mergeDoc('polls', id, {stage:1}); };
+        // the clicker: while options are still covered, → / space / PageDown
+        // uncovers the next one instead of leaving the slide.
+        document.addEventListener('keydown', function(e){
+          if(!sec.classList.contains('active') || want>=n) return;
+          if(e.key!=='ArrowRight' && e.key!==' ' && e.key!=='PageDown') return;
+          const t=e.target, tag=t&&t.tagName;
+          if(tag==='INPUT'||tag==='TEXTAREA'||tag==='SELECT'||(t&&t.isContentEditable)) return;
+          e.preventDefault(); e.stopPropagation(); bump();
+        }, true);
       }
     }
 
@@ -3971,6 +4082,12 @@ show(start);
   attends.forEach(function(sec){
     const id=sec.dataset.atId, CHAPTER=sec.dataset.atChapter;
     const URL_=(window.ATTENDANCE_URL||'').trim();
+    // Students submit through a Google Form when one is configured (fast, and
+    // Forms does the writing); ATTENDANCE_URL is still what the INSTRUCTOR's
+    // "Submit Attendance" calls to mail the roster — one request, no burst.
+    const FORM=window.ATTENDANCE_FORM||null;
+    const FORM_OK=!!(FORM && FORM.url && FORM.fields && FORM.fields.first
+                     && FORM.fields.last && FORM.fields.email);
     const bar=sec.querySelector('[data-at-bar]');
     const openBtn=sec.querySelector('[data-at-open]');
     const finBtn=sec.querySelector('[data-at-finalize]');
@@ -4060,47 +4177,78 @@ show(start);
         try{ localStorage.setItem(doneKey(),'1'); }catch(e){}
         backend.mergeDocShard('polls', id, {n: backend.inc(1)});
         modal.querySelector('[data-at-donesub]').textContent = warn ||
-          ('A confirmation email is on its way to '+em+'.');
+          ('Your instructor has you on the roster. A confirmation email follows shortly.');
         formBox.hidden=true; doneBox.hidden=false;
       }
-      if(!URL_){ finish('Recorded locally — your instructor has not finished setting up the attendance link yet.'); return; }
-      // text/plain keeps this a CORS "simple request" (no preflight), which is what
-      // an Apps Script web app accepts. If CORS still blocks, retry opaque so the
-      // row is written even though we cannot read the reply.
-      fetch(URL_, {method:'POST', mode:'cors', redirect:'follow',
-                   headers:{'Content-Type':'text/plain;charset=utf-8'},
-                   body:JSON.stringify(payload)})
-        .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status);
-                           return r.json().catch(function(){ return {ok:true}; }); })
-        .then(function(j){
-          if(j && j.ok===false){
-            // the server understood us and said no — a retry would not help, and
-            // silently "succeeding" would tell the student they are marked present
-            // when no row was written
-            const e=new Error(j.error||'rejected'); e.rejected=true; throw e;
-          }
-          finish(null);
-        })
-        .catch(function(err){
-          if(err && err.rejected){
-            sendBtn.disabled=false; sendBtn.textContent='Submit';
-            msgEl.className='at-msg err';
-            msgEl.textContent='Not recorded — the attendance server said: '+err.message+
-                              '. Please tell your instructor.';
-            return;
-          }
-          // network/CORS failure: we cannot read the reply, so send it blind rather
-          // than block a student who really did submit
-          return fetch(URL_, {method:'POST', mode:'no-cors',
-                              headers:{'Content-Type':'text/plain;charset=utf-8'},
-                              body:JSON.stringify(payload)})
+      function fail(msg){
+        sendBtn.disabled=false; sendBtn.textContent='Submit';
+        msgEl.className='at-msg err'; msgEl.textContent=msg;
+      }
+      // ---- preferred path: ingest through a Google Form -------------------
+      // Google's own infrastructure absorbs the burst, so there is no script
+      // lock and no ~10-writes/second ceiling: 350 submissions land in seconds
+      // instead of two minutes, and no row can be clobbered because Forms — not
+      // code of ours — does the writing.
+      //
+      // The catch, and it is a real one: Forms sends no CORS headers, so the
+      // POST has to go out `no-cors` and the reply is opaque. We can tell that
+      // the request left the browser; we can never tell what the server said.
+      // Two consequences, both deliberate:
+      //   * SPREAD the sends. Load-testing showed a tight burst from one IP
+      //     losing ~8% to per-IP rate limiting, while the same 350 spread over
+      //     ~20s lost none — and a lecture hall shares a few NATed campus IPs.
+      //   * The slide's counter therefore means "submitted", not "saved". Check
+      //     it against the sheet; the confirmation email is the real receipt.
+      if(FORM_OK){
+        const p=new URLSearchParams();
+        p.set(FORM.fields.first, fn);
+        p.set(FORM.fields.last,  ln);
+        p.set(FORM.fields.email, em);
+        // the human-readable label ("MWF 9:05 am"), not the internal key — this
+        // column is read by a person at the end of the semester. TA routing uses
+        // the key, which the instructor's finalize call carries separately.
+        if(FORM.fields.section) p.set(FORM.fields.section, String(st.secLabel||st.sec||''));
+        if(FORM.fields.session) p.set(FORM.fields.session, String(st.session||''));
+        if(FORM.fields.chapter) p.set(FORM.fields.chapter, CHAPTER);
+        setTimeout(function(){
+          fetch(FORM.url, {method:'POST', mode:'no-cors', body:p})
             .then(function(){ finish(null); })
             .catch(function(){
-              sendBtn.disabled=false; sendBtn.textContent='Submit';
-              msgEl.className='at-msg err';
-              msgEl.textContent='Could not reach the attendance server. Check your connection and try again.';
+              fail('Could not reach the attendance form — check your connection and press Submit again.');
             });
-        });
+        }, Math.random()*(FORM.spreadMs||6000));
+        return;
+      }
+
+      if(!URL_){ finish('Recorded locally — your instructor has not finished setting up the attendance link yet.'); return; }
+
+      // A roll call is a thundering herd: 300 browsers POST at once and Apps
+      // Script only runs ~30 at a time. So spread the first attempt over a few
+      // seconds, then back off — and NEVER claim success we have not been told
+      // about: the count on the slide has to mean "a row was written".
+      const TRIES=5, WAITS=[1500, 3500, 7000, 12000];
+      function attempt(k){
+        sendBtn.textContent = k===1 ? 'Sending…' : 'Still trying… ('+k+' of '+TRIES+')';
+        fetch(URL_, {method:'POST', mode:'cors', redirect:'follow',
+                     headers:{'Content-Type':'text/plain;charset=utf-8'},
+                     body:JSON.stringify(payload)})
+          .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+          .then(function(j){
+            if(j && j.ok===true){ finish(null); return; }
+            // the server understood us and said no — retrying cannot help
+            const e=new Error((j&&j.error)||'rejected'); e.rejected=true; throw e;
+          })
+          .catch(function(err){
+            if(err && err.rejected){
+              fail('Not recorded — the attendance server said: '+err.message+'. Please tell your instructor.');
+              return;
+            }
+            if(k<TRIES){ setTimeout(function(){ attempt(k+1); }, WAITS[k-1]+Math.random()*800); return; }
+            fail('Could not reach the attendance server after several tries. Please press Submit again.');
+          });
+      }
+      sendBtn.textContent='Sending…';
+      setTimeout(function(){ attempt(1); }, Math.random()*4000);
     }
     sendBtn.addEventListener('click', send);
 
@@ -4114,9 +4262,13 @@ show(start);
           ? 'Locked while this roll call is open — press Submit Attendance or Cancel to change section.'
           : 'Which section this roll call is for'; }
         openBtn.textContent = st.session ? 'Start attendance again' : 'Attendance';
-        if(!URL_){
+        if(!URL_ && !FORM_OK){
           statusEl.className='an-att-status warn';
-          statusEl.textContent='No attendance link set — add window.ATTENDANCE_URL to firebase-config.js (see ATTENDANCE-SETUP.md).';
+          statusEl.textContent='No attendance link set — add window.ATTENDANCE_FORM (or window.ATTENDANCE_URL) to firebase-config.js (see ATTENDANCE-SETUP.md).';
+        } else if(FORM_OK && !URL_){
+          // collection works; only the end-of-class roster email is missing
+          statusEl.className='an-att-status warn';
+          statusEl.textContent='Collecting through the form. Add window.ATTENDANCE_URL too if you want the roster emailed when you press Submit Attendance.';
         } else {
           statusEl.className='an-att-status';
           statusEl.innerHTML = open
@@ -4150,6 +4302,17 @@ show(start);
       cancelBtn.addEventListener('click', function(){
         backend.mergeDoc('polls', id, {open:0});
       });
+      // optional: wipe the last roll call so the slide is clean for the next class
+      const clearBtn=sec.querySelector('[data-at-clear]');
+      if(clearBtn){
+        clearBtn.hidden=false;
+        clearBtn.addEventListener('click', function(){
+          if(!confirm('Clear the last roll call from this slide?\n\n(The roster that was emailed is unaffected.)')) return;
+          backend.setDoc('polls', id, {open:0, session:'', n:0, sec:'', secLabel:''});
+          try{ Object.keys(localStorage).forEach(function(k){
+            if(k.indexOf('att-done:'+id+':')===0) localStorage.removeItem(k); }); }catch(e){}
+        });
+      }
       finBtn.addEventListener('click', function(){
         backend.mergeDoc('polls', id, {open:0});
         if(!URL_){ alert('No attendance link is configured yet — see ATTENDANCE-SETUP.md.'); return; }
