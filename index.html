@@ -396,6 +396,52 @@ img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
 .grid.cols-5{grid-template-columns:repeat(5,1fr);}
 @media (max-width:820px){ .grid.cols-5{grid-template-columns:1fr 1fr;} }
 
+.slide.nrg-slide{background:linear-gradient(158deg,#faf7f0,#f1ebdd);}
+.nrg-inner{max-width:78rem; margin:0 auto; width:100%; display:flex; flex-direction:column;}
+.nrg-eyebrow{color:#8a6a2f;}
+.nrg-head{font-family:'Merriweather',Georgia,serif; color:#3b3222;}
+.nrg-lead{font-size:clamp(.82rem,1.3vw,.98rem); line-height:1.5; color:#5a5142; max-width:76ch; margin:.25rem 0 .1rem;}
+.nrg-tabs{display:flex; flex-wrap:wrap; gap:.45rem; margin:.5rem 0 .1rem;}
+.nrg-tab{font-family:'Inter',sans-serif; font-size:clamp(.7rem,1.12vw,.84rem); font-weight:700;
+  letter-spacing:.01em; cursor:pointer; color:#7a6f5c; background:#fffdf8; border:1.5px solid #ded3bd;
+  border-radius:999px; padding:.38rem .95rem; transition:background .15s, color .15s, border-color .15s;}
+.nrg-tab:hover{border-color:#8a6a2f; color:#5a5142;}
+.nrg-tab.on{background:#8a6a2f; border-color:#8a6a2f; color:#fffdf8;}
+.nrg-figure{flex:1; min-height:0; display:flex; align-items:center; justify-content:center; padding:.2rem 0;}
+.nrg-svg{width:100%; height:auto; max-height:60vh; display:block; shape-rendering:geometricPrecision;}
+/* flows */
+.nrg-rib{stroke-width:1.2;}
+.nrg-rib.coal{fill:#bcac93; stroke:#8c7a63;}
+.nrg-rib.elec{fill:#5f97a6; stroke:#3d7186;}
+.nrg-rib.waste{fill:#d59a63; stroke:#bf7b45;}
+/* nodes */
+.nrg-box{stroke-width:2;}
+.nrg-box.fuel{fill:#f6f0e6; stroke:#8c7a63;}
+.nrg-box.plant{fill:#fbf4e4; stroke:#8a6a2f;}
+.nrg-box.elec{fill:#ecf3f4; stroke:#3d7186;}
+.nrg-box.waste{fill:#f9eee2; stroke:#bf7b45;}
+/* arrowheads */
+.nrg-arrow.coal{fill:#8c7a63;} .nrg-arrow.elec{fill:#3d7186;} .nrg-arrow.waste{fill:#bf7b45;}
+/* glyphs */
+.nrg-glyph{fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round;}
+.nrg-glyph.coal{stroke:#7a5f3f;} .nrg-glyph.plant{stroke:#8a6a2f;} .nrg-glyph.waste{stroke:#a35f30;}
+.nrg-glyph.elec{fill:#234f5e; stroke:none;}
+.nrg-glyph.bolt{fill:#7a5f3f; stroke:none;}
+.nrg-glyph.light{stroke:#234f5e;}
+/* text */
+.nrg-cap{font-family:'Inter',sans-serif; font-size:12.5px; font-weight:700; letter-spacing:.06em; fill:#6b6350; text-anchor:middle;}
+.nrg-cap.plant{fill:#7a5c26;} .nrg-cap.elec{fill:#234f5e;} .nrg-cap.waste{fill:#8a4e28;}
+.nrg-sub{font-family:'Inter',sans-serif; font-size:11px; fill:#8a8271; text-anchor:middle;}
+.nrg-pct{font-family:'Merriweather',serif; font-weight:900; text-anchor:middle;}
+.nrg-pct.coal{fill:#4a3f2f;} .nrg-pct.elec{fill:#234f5e;} .nrg-pct.waste{fill:#8a4e28;}
+/* footer */
+.nrg-foot{margin-top:.1rem;}
+.nrg-compare{font-size:clamp(.76rem,1.2vw,.9rem); color:#5a5142; text-align:center; margin:0 0 .3rem;}
+.nrg-compare b{color:#234f5e;} .nrg-compare em{font-style:italic;}
+.nrg-cite{font-size:clamp(.58rem,.92vw,.7rem); color:#8a8271; line-height:1.45; text-align:center;
+  max-width:118ch; margin:0 auto; font-style:italic; border-top:1px solid #e6ddc9; padding-top:.4rem;}
+@media (max-width:820px){ .nrg-svg{max-height:none;} }
+
 
 /* announcements / upcoming assignments */
 .slide[data-type="announce"]{background:linear-gradient(160deg,#f7faf8,#eaf1ed);}
@@ -939,13 +985,206 @@ img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
     <div class="bleed-text">
 <div class="eyebrow">3.5 · Energy Efficiency and the Cost of Entropy</div>
 <h2 class="heading">Why Energy Is Always Lost</h2>
-<p class="lead">A coal power plant converts only about 35% of fuel energy into electricity — the rest is lost as heat, the <strong>Second Law</strong> in action. LED bulbs convert ~90% of electricity to light; incandescents only ~10%.</p>
-<div class="stat-row"><div class="stat-box"><div class="stat-num">35%</div><div class="stat-lbl">of coal-plant fuel energy reaches the grid</div></div><div class="stat-box"><div class="stat-num">~90%</div><div class="stat-lbl">LED efficiency vs. ~10% for incandescent</div></div></div>
-<ul class="bullets"><li>Every energy conversion wastes some energy as heat — which is why improving efficiency is one of the most cost-effective environmental strategies.</li><li>Higher efficiency = less fuel needed = lower emissions = lower costs.</li><li>The <strong>Second Law</strong> explains why perpetual-motion machines are impossible: every real system leaks energy as entropy increases.</li></ul>
+<p class="lead">A coal power plant converts only about 35% of fuel energy into electricity — the rest is lost as heat, the <strong>Second Law</strong> in action. An LED turns roughly 40% of its electricity into light; an incandescent bulb only about 10% — the other 90% is heat.</p>
+<div class="stat-row"><div class="stat-box"><div class="stat-num">35%</div><div class="stat-lbl">of coal-plant fuel energy reaches the grid</div></div><div class="stat-box"><div class="stat-num">~40%</div><div class="stat-lbl">LED electricity converted to light vs. ~10% for incandescent</div></div></div>
+<ul class="bullets"><li>Every energy conversion wastes some energy as heat — which is why improving efficiency is one of the most cost-effective environmental strategies.</li><li>Higher efficiency = less fuel needed = lower emissions = lower costs.</li><li>That 4× gain in light per watt is why an LED needs about 75% less electricity for the same brightness.</li><li>The <strong>Second Law</strong> explains why perpetual-motion machines are impossible: every real system leaks energy as entropy increases.</li></ul>
+<p class="note">Sources: U.S. EIA, Electric Power Annual (coal heat rate ≈10,300 Btu/kWh ≈33%; supercritical units up to ~40%); U.S. DOE Solid-State Lighting R&amp;D (LED radiant efficiency ~40–50%); U.S. DOE Energy Saver (incandescent bulbs release ~90% of their energy as heat; LEDs use ~75% less energy).</p>
     </div>
     <div class="bleed-media contain"><img src="media/image17.jpg" alt=""></div>
   </div>
   <div class="footer">© 2023 W. W. Norton &amp; Company, Inc.</div>
+</section>
+<section class="slide nrg-slide" data-type="content" style="--accent:#8a6a2f">
+  <div class="slide-inner col nrg-inner">
+    <div class="eyebrow nrg-eyebrow">3.5 &middot; Following the Energy</div>
+    <h2 class="heading nrg-head">Where a Power Plant&rsquo;s Energy Goes</h2>
+    <p class="nrg-lead">Only a fraction of a fuel&rsquo;s energy becomes electricity &mdash; the rest escapes as waste heat. Switch the source to compare. The Second Law, made visible.</p>
+    <div class="nrg-tabs" role="tablist" aria-label="Power source">
+      <button class="nrg-tab on" type="button" data-opt="coal" role="tab" aria-selected="true">Coal &middot; steam plant</button>
+      <button class="nrg-tab" type="button" data-opt="ngcc" role="tab" aria-selected="false">Natural gas &middot; combined cycle</button>
+      <button class="nrg-tab" type="button" data-opt="incand" role="tab" aria-selected="false">Incandescent bulb</button>
+      <button class="nrg-tab" type="button" data-opt="led" role="tab" aria-selected="false">LED bulb</button>
+    </div>
+    <div class="nrg-figure">
+      <svg viewBox="0 0 1000 360" class="nrg-svg" role="img" aria-label="Energy flow: 100% chemical energy in fuel becomes about 35% electricity and 65% waste heat">
+        <!-- flows (drawn first so the boxes cap their ends cleanly).
+             Ribbons are inset from the boxes' rounded corners so they meet the
+             straight part of each edge. Geometry is recomputed by the script. -->
+        <path class="nrg-rib coal"  data-rib-coal  d=""/>
+        <path class="nrg-rib elec"  data-rib-elec  d=""/>
+        <path class="nrg-rib waste" data-rib-waste d=""/>
+        <!-- nodes -->
+        <rect class="nrg-box fuel"  x="40"  y="82"  width="200" height="176" rx="10"/>
+        <rect class="nrg-box plant" x="430" y="82"  width="140" height="176" rx="10"/>
+        <rect class="nrg-box elec"  data-box-elec  x="770" y="44"  width="210" height="108" rx="10"/>
+        <rect class="nrg-box waste" data-box-waste x="770" y="176" width="210" height="140" rx="10"/>
+        <!-- arrowheads at each destination -->
+        <path class="nrg-arrow coal"  d="M414 161 L430 170 L414 179 Z"/>
+        <path class="nrg-arrow elec"  data-arrow-elec  d=""/>
+        <path class="nrg-arrow waste" data-arrow-waste d=""/>
+        <!-- glyphs -->
+        <g data-glyph-coal>
+          <path class="nrg-glyph coal" d="M140 96 C151 109 148 125 140 132 C132 125 129 112 140 96 Z"/>
+          <path class="nrg-glyph coal" d="M140 113 C146 119 145 126 140 129 C135 126 134 120 140 113 Z"/>
+        </g>
+        <g data-glyph-bolt style="display:none">
+          <path class="nrg-glyph bolt" d="M144 94 L130 116 H139 L135 134 L151 110 H142 L147 94 Z"/>
+        </g>
+        <g class="nrg-glyph plant" data-glyph-factory>
+          <path d="M474 171 V158 L485 151 V158 L496 151 V158 L507 151 V158 H518 V171 Z"/>
+          <path d="M510 158 V145 H517 V158"/>
+          <path d="M513 143 C519 139 510 135 516 130"/>
+        </g>
+        <g class="nrg-glyph plant" data-glyph-bulb style="display:none">
+          <path d="M500 133 C489 133 481 141 481 151 C481 158 486 162 489 166 V172 H511 V166 C514 162 519 158 519 151 C519 141 511 133 500 133 Z"/>
+          <path d="M491 176 H509"/><path d="M493 180 H507"/>
+        </g>
+        <g data-glyph-elecwrap>
+          <path class="nrg-glyph elec" data-glyph-elec d="M879 52 L868 66 H875 L871 78 L884 62 H877 L881 52 Z"/>
+          <g class="nrg-glyph light" data-glyph-light style="display:none">
+            <circle cx="875" cy="65" r="5.5"/>
+            <path d="M875 52 V56 M875 74 V78 M862 65 H866 M884 65 H888"/>
+            <path d="M866 56 L868.5 58.5 M884 56 L881.5 58.5 M866 74 L868.5 71.5 M884 74 L881.5 71.5"/>
+          </g>
+        </g>
+        <g class="nrg-glyph waste" data-glyph-waste>
+          <path d="M866 190 c3 2 3 5 0 7 s-3 5 0 7"/>
+          <path d="M875 188 c3 2 3 5 0 7 s-3 5 0 7"/>
+          <path d="M884 190 c3 2 3 5 0 7 s-3 5 0 7"/>
+        </g>
+        <!-- labels -->
+        <text class="nrg-cap"       data-lbl-incap x="140" y="162">CHEMICAL ENERGY IN</text>
+        <text class="nrg-sub"       data-lbl-fuel x="140" y="181">coal</text>
+        <text class="nrg-pct coal"  x="140" y="230" font-size="42">100%</text>
+        <text class="nrg-sub"       data-lbl-inunits x="140" y="252">100 units of fuel</text>
+
+        <text class="nrg-cap plant" data-lbl-plant1 x="500" y="196">POWER</text>
+        <text class="nrg-cap plant" data-lbl-plant2 x="500" y="216">PLANT</text>
+
+        <text class="nrg-cap elec"  data-lbl-eleccap x="875" y="90">ELECTRICITY</text>
+        <text class="nrg-pct elec"  data-lbl-elecpct x="875" y="126" font-size="32">35%</text>
+        <text class="nrg-sub"       data-lbl-elecsub x="875" y="144">the useful goal &#183; 35 units</text>
+
+        <text class="nrg-cap waste" data-lbl-wastecap x="875" y="224">WASTE HEAT</text>
+        <text class="nrg-pct waste" data-lbl-wastepct x="875" y="260" font-size="32">65%</text>
+        <text class="nrg-sub"       data-lbl-wastesub1 x="875" y="278">escaping as thermal energy</text>
+        <text class="nrg-sub"       data-lbl-wastesub2 x="875" y="294">up the stack &amp; cooling water</text>
+      </svg>
+    </div>
+    <div class="nrg-foot">
+      <p class="nrg-compare" data-nrg-note></p>
+      <p class="nrg-cite" data-nrg-cite></p>
+    </div>
+  </div>
+  <div class="footer">© 2023 W. W. Norton &amp; Company, Inc.</div>
+  <script>(function(){
+    var root=document.currentScript.closest('.nrg-slide');
+    if(!root||root.dataset.wired)return; root.dataset.wired='1';
+    // ── geometry (SVG user units) ─────────────────────────────────────────
+    var BAND_TOP=82, BAND_H=176, R=10;      // plant/fuel box top + height, corner radius
+    var X_OUT=570, X_BOX=770;               // plant right edge → output boxes left edge
+    var IN=R+4;                             // inset so ribbons meet the STRAIGHT edge,
+                                            // just below/above the rounded corners
+    var S={ // efficiency (useful fraction) + copy per example
+      coal:{eff:.35, incap:'CHEMICAL ENERGY IN', fuel:'coal', inunits:'100 units of fuel',
+        p1:'STEAM', p2:'PLANT', inglyph:'fire', plantglyph:'factory',
+        outcap:'ELECTRICITY', outglyph:'bolt',
+        wsub1:'escaping as thermal energy', wsub2:'up the stack &amp; cooling water',
+        note:'A conventional coal steam plant converts about <b>35%</b> of the fuel&rsquo;s chemical energy into electricity &mdash; roughly two-thirds is lost as heat.',
+        cite:'Representative value. Sources: U.S. Energy Information Administration, <em>Electric Power Annual</em> (avg. operating heat rate for coal &asymp;10,300&nbsp;Btu/kWh &asymp;33%; supercritical units up to ~40%); W.&nbsp;W.&nbsp;Norton, <em>Environmental Science</em> (2023, ~35% for coal).'},
+      ngcc:{eff:.60, incap:'CHEMICAL ENERGY IN', fuel:'natural gas', inunits:'100 units of fuel',
+        p1:'COMBINED', p2:'CYCLE', inglyph:'fire', plantglyph:'factory',
+        outcap:'ELECTRICITY', outglyph:'bolt',
+        wsub1:'escaping as thermal energy', wsub2:'exhaust &amp; condenser cooling',
+        note:'A modern natural-gas <em>combined-cycle</em> plant reuses the turbine&rsquo;s exhaust heat to run a second (steam) cycle &mdash; reaching about <b>60%</b>.',
+        cite:'Representative value. Sources: U.S. EIA, <em>Electric Power Annual</em> (natural-gas combined-cycle heat rate &asymp;7,600&nbsp;Btu/kWh &asymp;45% fleet average); IEA, <em>Power Generation Efficiency</em>; GE&nbsp;Vernova 9HA / Siemens&nbsp;Energy H-class combined-cycle rated ~60&ndash;64% (best-in-class).'},
+      incand:{eff:.10, incap:'ELECTRICAL ENERGY IN', fuel:'from the outlet', inunits:'100 units of electricity',
+        p1:'INCANDESCENT', p2:'BULB', inglyph:'bolt', plantglyph:'bulb',
+        outcap:'LIGHT', outglyph:'light',
+        wsub1:'escaping as thermal energy', wsub2:'the bulb is too hot to touch',
+        note:'An incandescent bulb is really a small heater that happens to glow &mdash; only about <b>10%</b> of the electricity becomes visible light.',
+        cite:'Representative value. Sources: U.S. Department of Energy, <em>Energy Saver &mdash; Lighting Choices</em> (incandescent bulbs release ~90% of their energy as heat); DOE <em>Solid-State Lighting</em> program.'},
+      led:{eff:.40, incap:'ELECTRICAL ENERGY IN', fuel:'from the outlet', inunits:'100 units of electricity',
+        p1:'LED', p2:'BULB', inglyph:'bolt', plantglyph:'bulb',
+        outcap:'LIGHT', outglyph:'light',
+        wsub1:'escaping as thermal energy', wsub2:'drawn off by the heat sink',
+        note:'An LED turns a far larger share of the same electricity into light &mdash; roughly <b>40%</b> &mdash; which is why it needs ~75% less energy for the same brightness.',
+        cite:'Representative value. Sources: U.S. DOE <em>Solid-State Lighting R&amp;D</em> (LED package radiant efficiency ~40&ndash;50%; commercial luminaire efficacy ~120&ndash;160&nbsp;lm/W against a ~250&ndash;370&nbsp;lm/W white-light maximum); DOE <em>Energy Saver</em> (LEDs use ~75% less energy than incandescent).'}
+    };
+    var $=function(s){return root.querySelector(s);};
+    function fmt(v){ return Math.round(v)+'%'; }
+    function draw(k){
+      var d=S[k], eff=d.eff, split=BAND_TOP+BAND_H*eff;  // y where the flow divides
+      // ── ribbons, inset from the rounded corners ──
+      var t=BAND_TOP+IN, b=BAND_TOP+BAND_H-IN;           // straight-edge span
+      $('[data-rib-coal]').setAttribute('d','M240 '+t+' H430 V'+b+' H240 Z');
+      // output boxes share one vertical span, heights ∝ their share, never overlapping.
+      // Minimums keep 3 lines (useful) / 4 lines (waste) of text comfortably inside.
+      var TOP=38, BOT=322, GAP=22, AVAIL=(BOT-TOP)-GAP, MIN_E=100, MIN_W=118;
+      var eH=Math.round(AVAIL*eff), wH=AVAIL-eH;
+      if(eH<MIN_E){ eH=MIN_E; wH=AVAIL-eH; }
+      if(wH<MIN_W){ wH=MIN_W; eH=AVAIL-wH; }
+      var eY=TOP, wY=TOP+eH+GAP;
+      var eb=$('[data-box-elec]'), wb=$('[data-box-waste]');
+      eb.setAttribute('y',eY); eb.setAttribute('height',eH);
+      wb.setAttribute('y',wY); wb.setAttribute('height',wH);
+      // ribbon ends inset inside those boxes too
+      var e1=eY+IN, e2=Math.max(e1+6, eY+eH-IN), w1=wY+IN, w2=Math.max(w1+6, wY+wH-IN);
+      $('[data-rib-elec]').setAttribute('d',
+        'M'+X_OUT+' '+t+' C660 '+t+' 690 '+e1+' '+X_BOX+' '+e1+
+        ' L'+X_BOX+' '+e2+' C690 '+e2+' 660 '+split+' '+X_OUT+' '+split+' Z');
+      $('[data-rib-waste]').setAttribute('d',
+        'M'+X_OUT+' '+split+' C660 '+split+' 690 '+w1+' '+X_BOX+' '+w1+
+        ' L'+X_BOX+' '+w2+' C690 '+w2+' 660 '+b+' '+X_OUT+' '+b+' Z');
+      var ec=(e1+e2)/2, wc=(w1+w2)/2;
+      $('[data-arrow-elec]').setAttribute('d','M754 '+(ec-8)+' L770 '+ec+' L754 '+(ec+8)+' Z');
+      $('[data-arrow-waste]').setAttribute('d','M754 '+(wc-8)+' L770 '+wc+' L754 '+(wc+8)+' Z');
+      // ── labels ──
+      $('[data-lbl-incap]').textContent=d.incap;
+      $('[data-lbl-fuel]').textContent=d.fuel;
+      $('[data-lbl-inunits]').textContent=d.inunits;
+      $('[data-lbl-eleccap]').textContent=d.outcap;
+      $('[data-lbl-plant1]').textContent=d.p1;
+      $('[data-lbl-plant2]').textContent=d.p2;
+      $('[data-lbl-elecpct]').textContent=fmt(eff*100);
+      $('[data-lbl-elecsub]').innerHTML='the useful goal &#183; '+Math.round(eff*100)+' units';
+      $('[data-lbl-wastepct]').textContent=fmt((1-eff)*100);
+      $('[data-lbl-wastesub1]').innerHTML=d.wsub1;
+      $('[data-lbl-wastesub2]').innerHTML=d.wsub2;
+      // re-centre each box's content as one stack (glyph, cap, %, sub-lines)
+      var eMid=eY+eH/2, wMid=wY+wH/2;
+      var eTop=eMid-47;                     // 3-line stack + glyph ≈ 94 tall
+      $('[data-glyph-elecwrap]').setAttribute('transform','translate(0,'+(eTop+13-64)+')');
+      $('[data-lbl-eleccap]').setAttribute('y',eTop+40);
+      $('[data-lbl-elecpct]').setAttribute('y',eTop+72);
+      $('[data-lbl-elecsub]').setAttribute('y',eTop+90);
+      var wTop=wMid-55;                     // 4-line stack + glyph ≈ 110 tall
+      $('[data-glyph-waste]').setAttribute('transform','translate(0,'+(wTop+12-196)+')');
+      $('[data-lbl-wastecap]').setAttribute('y',wTop+38);
+      $('[data-lbl-wastepct]').setAttribute('y',wTop+70);
+      $('[data-lbl-wastesub1]').setAttribute('y',wTop+88);
+      $('[data-lbl-wastesub2]').setAttribute('y',wTop+104);
+      // glyph swaps (SVG ignores the HTML `hidden` attribute, so use display)
+      $('[data-glyph-coal]').style.display    = (d.inglyph==='fire')      ? '' : 'none';
+      $('[data-glyph-bolt]').style.display    = (d.inglyph==='bolt')      ? '' : 'none';
+      $('[data-glyph-factory]').style.display = (d.plantglyph==='factory')? '' : 'none';
+      $('[data-glyph-bulb]').style.display    = (d.plantglyph==='bulb')   ? '' : 'none';
+      $('[data-glyph-elec]').style.display    = (d.outglyph==='bolt')     ? '' : 'none';
+      $('[data-glyph-light]').style.display   = (d.outglyph==='light')    ? '' : 'none';
+      // ── footer copy ──
+      $('[data-nrg-note]').innerHTML=d.note;
+      $('[data-nrg-cite]').innerHTML=d.cite;
+    }
+    root.querySelectorAll('.nrg-tab').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        root.querySelectorAll('.nrg-tab').forEach(function(b){
+          var on=(b===btn); b.classList.toggle('on',on); b.setAttribute('aria-selected',on?'true':'false');
+        });
+        draw(btn.dataset.opt);
+      });
+    });
+    draw('coal');
+  })();</script>
 </section>
 <section class="slide" data-type="content" style="--accent:#2D6A4F">
   <div class="bleed-grid">
@@ -1051,7 +1290,7 @@ img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
 
 <div class="hud">
   <button onclick="prev()" title="Previous (left arrow)">&#8249;</button>
-  <span class="counter" id="counter">1 / 20</span>
+  <span class="counter" id="counter">1 / 21</span>
   <button onclick="next()" title="Next (right arrow)">&#8250;</button>
   <button onclick="toggleMenu()" title="Slide menu (O)">&#9776;</button>
   <button onclick="toggleFs()" title="Fullscreen (F)">&#9974;</button>
@@ -1060,7 +1299,7 @@ img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
 <div class="menu" id="menu">
   <button class="menu-close" onclick="toggleMenu(false)" aria-label="Close menu">&times;</button>
   <h3>Chapter 3 &mdash; Jump to a slide</h3>
-  <div class="menu-grid"><button class="menu-item" data-go="0"><span class="menu-num">1</span>Title</button><button class="menu-item" data-go="1"><span class="menu-num">2</span>Outline</button><button class="menu-item" data-go="2"><span class="menu-num">3</span>Announcements</button><button class="menu-item" data-go="3"><span class="menu-num">4</span>Fact or Fiction 1</button><button class="menu-item" data-go="4"><span class="menu-num">5</span>Fact or Fiction 2</button><button class="menu-item" data-go="5"><span class="menu-num">6</span>Fact or Fiction 3</button><button class="menu-item" data-go="6"><span class="menu-num">7</span>Fact or Fiction 4</button><button class="menu-item" data-go="7"><span class="menu-num">8</span>3.1 Matter &amp; Atoms</button><button class="menu-item" data-go="8"><span class="menu-num">9</span>3.1 Inside an Atom</button><button class="menu-item" data-go="9"><span class="menu-num">10</span>3.1 ▶ Build an Atom</button><button class="menu-item" data-go="10"><span class="menu-num">11</span>3.2 Conservation of Mass</button><button class="menu-item" data-go="11"><span class="menu-num">12</span>3.3 Mining Plastic</button><button class="menu-item" data-go="12"><span class="menu-num">13</span>3.4 Forms of Energy</button><button class="menu-item" data-go="13"><span class="menu-num">14</span>3.4 Photosynthesis</button><button class="menu-item" data-go="14"><span class="menu-num">15</span>3.5 Thermodynamics</button><button class="menu-item" data-go="15"><span class="menu-num">16</span>3.5 ▶ Energy Calculator</button><button class="menu-item" data-go="16"><span class="menu-num">17</span>3.5 Efficiency</button><button class="menu-item" data-go="17"><span class="menu-num">18</span>3.6 Trophic Levels</button><button class="menu-item" data-go="18"><span class="menu-num">19</span>3.6 The 10% Rule</button><button class="menu-item" data-go="19"><span class="menu-num">20</span>3.7 What Can I Do?</button></div>
+  <div class="menu-grid"><button class="menu-item" data-go="0"><span class="menu-num">1</span>Title</button><button class="menu-item" data-go="1"><span class="menu-num">2</span>Outline</button><button class="menu-item" data-go="2"><span class="menu-num">3</span>Announcements</button><button class="menu-item" data-go="3"><span class="menu-num">4</span>Fact or Fiction 1</button><button class="menu-item" data-go="4"><span class="menu-num">5</span>Fact or Fiction 2</button><button class="menu-item" data-go="5"><span class="menu-num">6</span>Fact or Fiction 3</button><button class="menu-item" data-go="6"><span class="menu-num">7</span>Fact or Fiction 4</button><button class="menu-item" data-go="7"><span class="menu-num">8</span>3.1 Matter &amp; Atoms</button><button class="menu-item" data-go="8"><span class="menu-num">9</span>3.1 Inside an Atom</button><button class="menu-item" data-go="9"><span class="menu-num">10</span>3.1 ▶ Build an Atom</button><button class="menu-item" data-go="10"><span class="menu-num">11</span>3.2 Conservation of Mass</button><button class="menu-item" data-go="11"><span class="menu-num">12</span>3.3 Mining Plastic</button><button class="menu-item" data-go="12"><span class="menu-num">13</span>3.4 Forms of Energy</button><button class="menu-item" data-go="13"><span class="menu-num">14</span>3.4 Photosynthesis</button><button class="menu-item" data-go="14"><span class="menu-num">15</span>3.5 Thermodynamics</button><button class="menu-item" data-go="15"><span class="menu-num">16</span>3.5 ▶ Energy Calculator</button><button class="menu-item" data-go="16"><span class="menu-num">17</span>3.5 Efficiency</button><button class="menu-item" data-go="17"><span class="menu-num">18</span>3.5 Energy Flow</button><button class="menu-item" data-go="18"><span class="menu-num">19</span>3.6 Trophic Levels</button><button class="menu-item" data-go="19"><span class="menu-num">20</span>3.6 The 10% Rule</button><button class="menu-item" data-go="20"><span class="menu-num">21</span>3.7 What Can I Do?</button></div>
 </div>
 
 <script>
@@ -1784,6 +2023,8 @@ show(start);
       submitBtn=el('[data-cm-submit]'), revealBox=el('[data-cm-reveal]'),
       zoneEl=el('[data-cm-zone]'), revLines=el('[data-cm-revlines]'),
       meEl=el('[data-cm-me]'), board=el('[data-cm-board]'),
+      dist=el('[data-cm-dist]'), youLbl=el('[data-cm-youlbl]'), youVal=el('[data-cm-youval]'),
+      avgVal=el('[data-cm-avgval]'), histo=el('[data-cm-histo]'),
       boardTitle=el('[data-cm-boardtitle]'), boardRows=el('[data-cm-boardrows]'),
       water=el('[data-cm-water]'), fishBox=el('[data-cm-fish]'),
       poolNum=el('[data-cm-poolnum]'), poolLbl=el('[data-cm-poollbl]'), capEl=el('[data-cm-cap]'),
@@ -1862,29 +2103,63 @@ show(start);
           +nameOf(k)+'</span></div>').join('');
         if(ks.length>14) roster+='<div class="cm-brow"><span class="nm" style="color:var(--muted)">…and '+(ks.length-14)+' more</span></div>';
         boardRows.innerHTML = roster || '<div class="cm-brow"><span class="nm" style="color:var(--muted)">No one yet…</span></div>';
+        boardRows.hidden=false; dist.hidden=true;
         return;
       }
-      boardTitle.textContent = ph==='final' ? '🏆 Final standings' : 'Leaderboard — total earnings';
-      const lastDone = histEntry(state.round||0) ? (state.round||0)
-        : Math.max(0,(state.round||0)-1);
-      const rows=Object.keys(players()).map(k=>({k:k, name:nameOf(k), tot:totalEarned(k),
-        take:histEntry(lastDone)? roundChoices(lastDone)[k] : undefined}));
-      rows.sort((a,b)=> b.tot-a.tot || a.name.localeCompare(b.name));
-      // big classes: top 10 + your own row (with true rank) + a "+N more" line
-      const rowHtml=(r,i)=>'<div class="cm-brow'+(r.k===pk?' me':'')+'">'
-        +'<span class="rk">'+(i+1)+'.</span><span class="nm">'+r.name+'</span>'
-        +(r.take!==undefined?'<span class="tk">took '+r.take+'</span>':'')
-        +'<span class="er">'+CM_FMT(r.tot)+'</span></div>';
-      let html;
-      if(rows.length<=12){ html=rows.map(rowHtml).join(''); }
-      else {
-        html=rows.slice(0,10).map(rowHtml).join('');
-        const meIdx=rows.findIndex(r=>r.k===pk);
-        if(meIdx>=10) html+=rowHtml(rows[meIdx], meIdx);
-        const others=rows.length-10-(meIdx>=10?1:0);
-        if(others>0) html+='<div class="cm-brow"><span class="nm" style="color:var(--muted)">…and '+others+' more players</span></div>';
+      // No ranking table: a leaderboard invites "who won", when the point is that
+      // the class as a whole did worse than it could have. Show where YOU sit
+      // against the class average, and how the whole class is spread.
+      boardTitle.textContent = ph==='final' ? 'Final results' : 'Where the class stands';
+      boardRows.hidden=true; dist.hidden=false;
+      // Count only students who actually submitted a choice in a played round.
+      // Someone sitting in the roster without ever playing would otherwise sit at
+      // $0 and drag the class average down — and it keeps the figure honest if a
+      // stale entry ever lingers in the roster.
+      const playedSet={};
+      for(let rr=1; rr<=(state.round||0); rr++){
+        const c=roundChoices(rr); Object.keys(c).forEach(function(k){ playedSet[k]=1; });
       }
-      boardRows.innerHTML=html;
+      let ks=Object.keys(players()).filter(function(k){ return playedSet[k]; });
+      if(!ks.length) ks=Object.keys(players());
+      const vals=ks.map(function(k){ return totalEarned(k); });
+      const nP=vals.length;
+      const sum=vals.reduce((a,b)=>a+b,0);
+      const avg=nP? sum/nP : 0;
+      const mine=(!HOST && pk && players()[pk]!==undefined) ? totalEarned(pk) : null;
+      youLbl.textContent = (mine===null) ? 'Class total' : 'You earned';
+      youVal.textContent = (mine===null) ? CM_FMT(sum) : CM_FMT(mine);
+      avgVal.textContent = CM_FMT(avg);
+
+      // histogram of earnings — a pie can't show a spread, so this buckets the
+      // class into columns, tints your own bucket, and marks the average
+      const W=520, H=84, PADL=10, PADR=10, BASE=60, TOP=7, BINS=6;
+      const hi=Math.max.apply(null, vals.concat([1]));
+      const step=hi/BINS;
+      const counts=new Array(BINS).fill(0);
+      vals.forEach(function(v){ counts[Math.min(BINS-1, Math.floor(v/step))]++; });
+      const myBin = (mine===null) ? -1 : Math.min(BINS-1, Math.floor(mine/step));
+      const peak=Math.max.apply(null, counts.concat([1]));
+      const plotW=W-PADL-PADR, bw=plotW/BINS;
+      let sv='<defs><filter id="cmRough-'+id+'" x="-6%" y="-6%" width="112%" height="112%">'
+        +'<feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="9" result="n"/>'
+        +'<feDisplacementMap in="SourceGraphic" in2="n" scale="1.3" xChannelSelector="R" yChannelSelector="G"/>'
+        +'</filter></defs><g filter="url(#cmRough-'+id+')">';
+      counts.forEach(function(c,i){
+        const h=(c/peak)*(BASE-TOP), x=PADL+i*bw+2, y=BASE-h;
+        sv+='<rect class="cm-hbar2'+(i===myBin?' me':'')+'" x="'+x.toFixed(1)+'" y="'+y.toFixed(1)
+          +'" width="'+(bw-4).toFixed(1)+'" height="'+Math.max(h,c?2:0).toFixed(1)+'" rx="2"/>';
+        if(c) sv+='<text class="cm-hcount" x="'+(x+(bw-4)/2).toFixed(1)+'" y="'+(y-3).toFixed(1)+'">'+c+'</text>';
+      });
+      sv+='<path class="cm-haxis" d="M'+PADL+' '+BASE+' H'+(W-PADR)+'"/></g>';
+      // average marker
+      const ax=PADL+(hi? avg/hi : 0)*plotW;
+      sv+='<path class="cm-havg" d="M'+ax.toFixed(1)+' '+TOP+' V'+BASE+'"/>'
+        + '<text class="cm-havglbl" x="'+Math.min(W-PADR, Math.max(PADL+26, ax)).toFixed(1)
+        + '" y="'+(BASE+13)+'" text-anchor="middle">avg</text>';
+      sv+='<text class="cm-hend" x="'+PADL+'" y="'+(BASE+27)+'">'+CM_FMT(0)+'</text>'
+        + '<text class="cm-hend" x="'+(W-PADR)+'" y="'+(BASE+27)+'" text-anchor="end">'+CM_FMT(hi)+'</text>';
+      if(myBin>=0) sv+='<text class="cm-hyou" x="'+(PADL+myBin*bw+bw/2).toFixed(1)+'" y="'+(BASE+13)+'" text-anchor="middle">you</text>';
+      histo.innerHTML=sv;
     }
     function renderReveal(){
       const ph=state.phase||'idle', r=state.round||0, e=histEntry(r);
