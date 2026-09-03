@@ -396,50 +396,50 @@ img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
 .grid.cols-5{grid-template-columns:repeat(5,1fr);}
 @media (max-width:820px){ .grid.cols-5{grid-template-columns:1fr 1fr;} }
 
-.slide.nrg-slide{background:linear-gradient(158deg,#faf7f0,#f1ebdd);}
+/* Uses the deck's own palette (white paper, forest ink, --line rules) so this
+   slide reads like slides 15/19; the flow itself keeps the motion. */
 .nrg-inner{max-width:78rem; margin:0 auto; width:100%; display:flex; flex-direction:column;}
-.nrg-eyebrow{color:#8a6a2f;}
-.nrg-head{font-family:'Merriweather',Georgia,serif; color:#3b3222;}
-.nrg-lead{font-size:clamp(.82rem,1.3vw,.98rem); line-height:1.5; color:#5a5142; max-width:76ch; margin:.25rem 0 .1rem;}
-.nrg-tabs{display:flex; flex-wrap:wrap; gap:.45rem; margin:.5rem 0 .1rem;}
-.nrg-tab{font-family:'Inter',sans-serif; font-size:clamp(.7rem,1.12vw,.84rem); font-weight:700;
-  letter-spacing:.01em; cursor:pointer; color:#7a6f5c; background:#fffdf8; border:1.5px solid #ded3bd;
-  border-radius:999px; padding:.38rem .95rem; transition:background .15s, color .15s, border-color .15s;}
-.nrg-tab:hover{border-color:#8a6a2f; color:#5a5142;}
-.nrg-tab.on{background:#8a6a2f; border-color:#8a6a2f; color:#fffdf8;}
+.nrg-lead{font-size:clamp(.82rem,1.3vw,.98rem); line-height:1.55; color:var(--muted); max-width:76ch; margin:.1rem 0;}
+.nrg-tabs{display:flex; flex-wrap:wrap; gap:.45rem; margin:.45rem 0 .15rem;}
+.nrg-tab{font-family:'Inter',sans-serif; font-size:clamp(.72rem,1.14vw,.86rem); font-weight:700;
+  cursor:pointer; color:var(--forest); background:#fff; border:1.5px solid var(--line);
+  border-radius:10px; padding:.4rem .95rem; transition:all .12s;}
+.nrg-tab:hover{border-color:var(--accent); transform:translateY(-1px);}
+.nrg-tab.on{background:var(--accent); border-color:var(--accent); color:#fff;}
 .nrg-figure{flex:1; min-height:0; display:flex; align-items:center; justify-content:center; padding:.2rem 0;}
-.nrg-svg{width:100%; height:auto; max-height:60vh; display:block; shape-rendering:geometricPrecision;}
-/* flows */
+.nrg-svg{width:100%; height:auto; max-height:58vh; display:block; shape-rendering:geometricPrecision;}
+/* flows — deck palette: slate = energy in, blue = useful out, clay red = waste */
 .nrg-rib{stroke-width:1.2;}
-.nrg-rib.coal{fill:#bcac93; stroke:#8c7a63;}
-.nrg-rib.elec{fill:#5f97a6; stroke:#3d7186;}
-.nrg-rib.waste{fill:#d59a63; stroke:#bf7b45;}
+.nrg-rib.coal{fill:#9db3ac; stroke:#52796F;}
+.nrg-rib.elec{fill:#5b9fbb; stroke:#1C7293;}
+.nrg-rib.waste{fill:#c9868a; stroke:#A4373A;}
 /* nodes */
-.nrg-box{stroke-width:2;}
-.nrg-box.fuel{fill:#f6f0e6; stroke:#8c7a63;}
-.nrg-box.plant{fill:#fbf4e4; stroke:#8a6a2f;}
-.nrg-box.elec{fill:#ecf3f4; stroke:#3d7186;}
-.nrg-box.waste{fill:#f9eee2; stroke:#bf7b45;}
+.nrg-box{fill:#fff; stroke-width:2;}
+.nrg-box.fuel{stroke:#52796F;}
+.nrg-box.plant{stroke:var(--accent);}
+.nrg-box.elec{stroke:#1C7293;}
+.nrg-box.waste{stroke:#A4373A;}
 /* arrowheads */
-.nrg-arrow.coal{fill:#8c7a63;} .nrg-arrow.elec{fill:#3d7186;} .nrg-arrow.waste{fill:#bf7b45;}
+.nrg-arrow.coal{fill:#52796F;} .nrg-arrow.elec{fill:#1C7293;} .nrg-arrow.waste{fill:#A4373A;}
 /* glyphs */
 .nrg-glyph{fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round;}
-.nrg-glyph.coal{stroke:#7a5f3f;} .nrg-glyph.plant{stroke:#8a6a2f;} .nrg-glyph.waste{stroke:#a35f30;}
-.nrg-glyph.elec{fill:#234f5e; stroke:none;}
-.nrg-glyph.bolt{fill:#7a5f3f; stroke:none;}
-.nrg-glyph.light{stroke:#234f5e;}
+.nrg-glyph.coal{stroke:#52796F;} .nrg-glyph.plant{stroke:var(--accent);} .nrg-glyph.waste{stroke:#A4373A;}
+.nrg-glyph.elec{fill:#1C7293; stroke:none;}
+.nrg-glyph.bolt{fill:#52796F; stroke:none;}
+.nrg-glyph.light{stroke:#1C7293;}
 /* text */
-.nrg-cap{font-family:'Inter',sans-serif; font-size:12.5px; font-weight:700; letter-spacing:.06em; fill:#6b6350; text-anchor:middle;}
-.nrg-cap.plant{fill:#7a5c26;} .nrg-cap.elec{fill:#234f5e;} .nrg-cap.waste{fill:#8a4e28;}
-.nrg-sub{font-family:'Inter',sans-serif; font-size:11px; fill:#8a8271; text-anchor:middle;}
+.nrg-cap{font-family:'Inter',sans-serif; font-size:12.5px; font-weight:700; letter-spacing:.06em;
+  fill:var(--muted); text-anchor:middle;}
+.nrg-cap.plant{fill:#8a2f32;} .nrg-cap.elec{fill:#12556e;} .nrg-cap.waste{fill:#8a2f32;}
+.nrg-sub{font-family:'Inter',sans-serif; font-size:11px; fill:#7e8c85; text-anchor:middle;}
 .nrg-pct{font-family:'Merriweather',serif; font-weight:900; text-anchor:middle;}
-.nrg-pct.coal{fill:#4a3f2f;} .nrg-pct.elec{fill:#234f5e;} .nrg-pct.waste{fill:#8a4e28;}
+.nrg-pct.coal{fill:#3b544c;} .nrg-pct.elec{fill:#12556e;} .nrg-pct.waste{fill:#8a2f32;}
 /* footer */
 .nrg-foot{margin-top:.1rem;}
-.nrg-compare{font-size:clamp(.76rem,1.2vw,.9rem); color:#5a5142; text-align:center; margin:0 0 .3rem;}
-.nrg-compare b{color:#234f5e;} .nrg-compare em{font-style:italic;}
-.nrg-cite{font-size:clamp(.58rem,.92vw,.7rem); color:#8a8271; line-height:1.45; text-align:center;
-  max-width:118ch; margin:0 auto; font-style:italic; border-top:1px solid #e6ddc9; padding-top:.4rem;}
+.nrg-compare{font-size:clamp(.76rem,1.2vw,.9rem); color:var(--muted); text-align:center; margin:0 0 .3rem;}
+.nrg-compare b{color:#12556e;} .nrg-compare em{font-style:italic;}
+.nrg-cite{font-size:clamp(.58rem,.92vw,.7rem); color:#7e8c85; line-height:1.45; text-align:center;
+  max-width:118ch; margin:0 auto; font-style:italic; border-top:1px solid var(--line); padding-top:.4rem;}
 @media (max-width:820px){ .nrg-svg{max-height:none;} }
 
 .slide.fp-slide{background:linear-gradient(158deg,#faf7f0,#f1ebdd);}
@@ -686,6 +686,11 @@ img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
 @keyframes pollpop{from{transform:scale(.55); opacity:0;} to{transform:scale(1); opacity:1;}}
 .poll-opt.correct{border-color:var(--opt,var(--accent));
   box-shadow:0 0 0 3px var(--opt,var(--accent)) inset, 0 6px 18px rgba(20,40,30,.18);}
+/* sources line, uncovered together with the answer */
+.poll-refs{max-width:1060px; width:100%; margin:.55rem auto 0; padding-top:.4rem;
+  border-top:1px solid var(--line); font-size:clamp(.6rem,.95vw,.72rem); line-height:1.45;
+  color:var(--muted); font-style:italic;}
+.poll-refs[hidden]{display:none;}
 /* concealed: the tally is hidden until the instructor reveals it */
 .slide.poll.concealed .poll-opt-fill{width:0 !important;}
 .slide.poll.concealed .poll-opt-count,
@@ -920,6 +925,7 @@ img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
     </div>
     <div class="poll-answer" data-poll-answer hidden aria-live="polite"><span class="poll-answer-big"></span></div>
     <div class="poll-mid"><div class="poll-opts" data-poll-opts><button class="poll-opt" type="button" data-idx="0" style="--opt:#2D6A4F"><span class="poll-opt-fill"></span><span class="poll-opt-row"><span class="poll-opt-chip"></span><span class="poll-opt-label">True</span><span class="poll-opt-stat"><span class="poll-opt-count">0 votes</span><span class="poll-opt-pct">0%</span></span></span></button><button class="poll-opt" type="button" data-idx="1" style="--opt:#1C7293"><span class="poll-opt-fill"></span><span class="poll-opt-row"><span class="poll-opt-chip"></span><span class="poll-opt-label">False</span><span class="poll-opt-stat"><span class="poll-opt-count">0 votes</span><span class="poll-opt-pct">0%</span></span></span></button></div><figure class="poll-figure"><img src="media/poll-uranium.jpg" alt=""><figcaption class="poll-figcap">Photo: U.S. NRC (public domain)</figcaption></figure></div>
+    <div class="poll-refs" data-poll-refs hidden>Sources: U.S. Department of Energy, Office of Nuclear Energy, <em>Nuclear Fuel Facts: Uranium</em> — one fuel pellet holds about as much energy as 1&nbsp;ton of coal, 149&nbsp;gallons of oil, or 17,000&nbsp;ft³ of natural gas. Burrito comparison: 1&nbsp;short ton of coal ≈ 24&nbsp;GJ ≈ 5.7&nbsp;million kcal (U.S. EIA, <em>Energy Conversion Calculators</em>) ÷ ~800&nbsp;kcal per burrito ≈ 7,000.</div>
     <div class="poll-foot">
       <span class="poll-total"><strong data-poll-total>0</strong> votes</span>
       <span class="poll-hint" data-poll-hint>Click your answer &mdash; results stay hidden until your instructor reveals them.</span>
@@ -1208,7 +1214,7 @@ img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
   </div>
   <div class="footer">© 2023 W. W. Norton &amp; Company, Inc.</div>
 </section>
-<section class="slide nrg-slide" data-type="content" style="--accent:#8a6a2f">
+<section class="slide nrg-slide" data-type="content" style="--accent:#A4373A">
   <div class="slide-inner col nrg-inner">
     <div class="eyebrow nrg-eyebrow">3.5 &middot; Following the Energy</div>
     <h2 class="heading nrg-head">Where Energy Goes</h2>
@@ -1799,6 +1805,8 @@ show(start);
           shown=on; answerBox.hidden=!on; sec.classList.toggle('revealed',on);
           // a concealed poll also uncovers its bars/percentages on reveal
           if(sec.dataset.pollConceal) sec.classList.toggle('concealed', !on);
+          var refsEl=sec.querySelector('[data-poll-refs]');
+          if(refsEl) refsEl.hidden=!on;
           opts.forEach((b,i)=>b.classList.toggle('correct', on && i===ansIdx));
           revealBtn.textContent = on ? 'Hide answer' : 'Reveal answer';
           revealBtn.setAttribute('aria-expanded', on?'true':'false');
