@@ -816,7 +816,7 @@ img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
           <td class="fp2-mod"><span class="fp2-num">5</span></td>
           <td><button class="fp2-link" type="button" data-fp="topic">Topic Selection and Outline</button></td>
           <td>Choose your topic and build an outline of the argument and its supporting structure.</td>
-          <td>Discussion post and outline document</td>
+          <td>Topic paragraph (Word doc) and outline document</td>
         </tr>
         <tr>
           <td class="fp2-mod"><span class="fp2-num">7</span></td>
@@ -852,7 +852,7 @@ img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
         '<p><b>Part 2 &mdash; Submit your proof.</b> Take a screenshot of each quiz completion screen and turn them in together.</p>'+
         '<p class="fp2-tip">While you work: begin narrowing toward a sustainability topic, and keep note of three sources you might use later.</p>'},
       topic:{mod:'Module 5', title:'Topic Selection and Outline', body:
-        '<p><b>Part 1 &mdash; Choose and post your topic.</b> Search the ASU Library&rsquo;s peer-reviewed databases and pick something specific &mdash; &ldquo;solar energy in Phoenix,&rdquo; not &ldquo;renewable energy.&rdquo; Then post roughly 100 words to the group discussion board:</p>'+
+        '<p><b>Part 1 &mdash; Choose and submit your topic.</b> Search the ASU Library&rsquo;s peer-reviewed databases and pick something specific &mdash; &ldquo;solar energy in Phoenix,&rdquo; not &ldquo;renewable energy.&rdquo; Submit a short paragraph (~100 words) to the assignment page as a Word document, covering:</p>'+
         '<ul><li>A concise, appealing topic title</li>'+
         '<li>What drew you to it, and why it counts as a sustainability issue</li>'+
         '<li>What you hope to find out</li>'+
@@ -1523,6 +1523,12 @@ img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
 </div>
 
 <script>
+// A game slide's inline script runs BEFORE this one (slides are emitted above the
+// shared script tag), so whichever gets there first creates the promise and the
+// other reuses it. POLL_JS resolves it once the live backend is ready.
+if(!window.__deckLiveReady){
+  window.__deckLiveReady = new Promise(function(res){ window.__deckLiveResolve = res; });
+}
 const slides = Array.from(document.querySelectorAll('.slide'));
 let cur = 0;
 const progress = document.getElementById('progress');
@@ -1609,11 +1615,12 @@ show(start);
   const shifts = Array.from(document.querySelectorAll('.slide.shift'));
   const guessembeds = Array.from(document.querySelectorAll('.guess-embed'));
   const attends = Array.from(document.querySelectorAll('[data-at-id]'));
+  const games = Array.from(document.querySelectorAll('[data-game-id]'));  // class_games.py
   if(!polls.length && !clouds.length && !probpolls.length && !dpolls.length && !commons.length
      && !guesses.length && !heatmaps.length && !rankings.length && !spectrums.length && !dollars.length
      && !captrades.length && !qafeeds.length && !gridmixes.length && !paybacks.length && !shifts.length
      && !endows.length && !splitdollars.length && !guessembeds.length && !inspects.length
-     && !attends.length) return;
+     && !attends.length && !games.length) return;
 
   // ---- pick a backend -----------------------------------------------------
   // Simple counts API (poll, wordcloud, dpoll votes): subscribe / bump / reset
@@ -1721,6 +1728,15 @@ show(start);
       status='live';
     }catch(err){ backend=localBackend(); status='offline'; console.warn('[interactive] Firebase load failed, using local backend', err); }
   } else { backend=localBackend(); status='local'; }
+
+  // ── publish the live backend ────────────────────────────────────────────
+  // Bespoke multiplayer slides (see class_games.py) await this instead of
+  // re-implementing sharding, Firebase loading and the ?host convention:
+  //   window.__deckLiveReady.then(({backend, HOST}) => { … })
+  try{
+    window.__deckLive = {backend:backend, status:status, HOST:HOST};
+    if(window.__deckLiveResolve) window.__deckLiveResolve(window.__deckLive);
+  }catch(e){}
 
   const navKeys=['ArrowLeft','ArrowRight','ArrowUp','ArrowDown',' ','PageUp','PageDown','Home','End'];
 
