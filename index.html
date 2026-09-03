@@ -513,6 +513,34 @@ img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
   border-radius:0 8px 8px 0; color:#4a3a3e; margin-top:.55rem;}
 .fp2-disclaimer b{color:#8C1D40;}
 @media (max-width:900px){ .fp-cols{grid-template-columns:1fr;} }
+/* ── rubric slide ── */
+.rb-bar{display:flex; width:100%; height:34px; border-radius:8px; overflow:hidden;
+  border:1px solid #e2d7bf; margin:.3rem 0 .7rem; box-shadow:0 2px 8px rgba(90,70,30,.07);}
+.rb-seg{display:flex; flex-direction:column; align-items:center; justify-content:center;
+  font-family:'Inter',sans-serif; font-size:clamp(.54rem,.86vw,.64rem); font-weight:700;
+  letter-spacing:.02em; color:#fffdf8; line-height:1.05; overflow:hidden; white-space:nowrap;
+  border-right:1px solid rgba(255,253,248,.5);}
+.rb-seg:last-child{border-right:none;}
+.rb-seg b{font-family:'Merriweather',serif; font-size:1.35em; line-height:1;}
+.rb-seg.s1{background:#8a6a2f;} .rb-seg.s2{background:#9d7d3c;} .rb-seg.s3{background:#b08f4c;}
+.rb-seg.s4{background:#7a5c26;} .rb-seg.s5{background:#c0a165;} .rb-seg.s6{background:#6b4f1e;}
+.rb-table td{font-size:clamp(.71rem,1.12vw,.85rem);}
+.rb-table .rb-pts{width:5.5rem; text-align:center;}
+.rb-num{font-family:'Merriweather',serif; font-weight:900; font-size:clamp(.95rem,1.5vw,1.15rem); color:#7a5c26;}
+.rb-total td{background:#f5eeda; font-family:'Inter',sans-serif; font-weight:800;
+  text-transform:uppercase; letter-spacing:.07em; font-size:clamp(.62rem,1vw,.74rem); color:#7a5c26;
+  text-align:right; border-top:2px solid #d9c9a3;}
+.rb-total .rb-num{font-size:clamp(1.05rem,1.7vw,1.3rem);}
+/* rating levels inside the pop-up */
+.rb-lv{border-left:3px solid #d9c9a3; padding:.15rem 0 .15rem .7rem; margin-bottom:.6rem;}
+.rb-lv-h{display:flex; align-items:baseline; gap:.5rem; margin-bottom:.15rem;}
+.rb-lv p{margin:0; font-size:clamp(.75rem,1.18vw,.89rem); line-height:1.5;}
+.rb-tier{font-family:'Inter',sans-serif; font-weight:800; font-size:.68rem; letter-spacing:.07em;
+  text-transform:uppercase; padding:.14rem .5rem; border-radius:999px; color:#fffdf8;}
+.rb-tier.t-excellent{background:#2D6A4F;} .rb-tier.t-proficient{background:#8a6a2f;}
+.rb-tier.t-developing,.rb-tier.t-satisfactory{background:#b0803a;}
+.rb-tier.t-limited,.rb-tier.t-unsatisfactory{background:#8C1D40;}
+.rb-band{font-family:'JetBrains Mono','Merriweather',monospace; font-size:.72rem; color:#8a8271; font-weight:700;}
 
 
 /* announcements / upcoming assignments */
@@ -892,6 +920,116 @@ img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
       b.addEventListener('click',function(e){ e.stopPropagation(); close(); });
     });
     // keep the deck's arrow-key navigation from firing while the dialog is open
+    document.addEventListener('keydown',function(e){
+      if(m.hidden)return;
+      if(e.key==='Escape'){ close(); e.stopPropagation(); e.preventDefault(); return; }
+      if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown',' ','PageUp','PageDown','Home','End'].indexOf(e.key)>-1) e.stopPropagation();
+    }, true);
+  })();</script>
+</section>
+<section class="slide fp-slide fp3-slide" data-type="content" style="--accent:#8a6a2f">
+  <div class="slide-inner col fp-inner">
+    <div class="eyebrow fp-eyebrow">Final Project &middot; Rubric</div>
+    <h2 class="heading fp-head">How the Video Is Scored</h2>
+    <p class="fp-lead">100 points across six criteria. Select any criterion to see all four rating levels and their point bands.</p>
+
+    <div class="rb-bar" aria-label="Relative weight of each criterion">
+      <span class="rb-seg s1" style="flex:15"><b>15</b>Intro &amp; Topic</span>
+      <span class="rb-seg s2" style="flex:15"><b>15</b>Systems</span>
+      <span class="rb-seg s3" style="flex:15"><b>15</b>Ecosystems</span>
+      <span class="rb-seg s4" style="flex:20"><b>20</b>Strategies</span>
+      <span class="rb-seg s5" style="flex:10"><b>10</b>Research</span>
+      <span class="rb-seg s6" style="flex:25"><b>25</b>Presentation</span>
+    </div>
+
+    <table class="fp2-table rb-table">
+      <thead><tr><th>Criterion</th><th>What earns full marks</th><th class="rb-pts">Points</th></tr></thead>
+      <tbody>
+        <tr><td><button class="fp2-link" type="button" data-rb="intro">Introduction &amp; Topic Selection</button></td>
+            <td>A clear, original thesis on a compelling sustainability issue, aligned with course concepts.</td>
+            <td class="rb-pts"><span class="rb-num">15</span></td></tr>
+        <tr><td><button class="fp2-link" type="button" data-rb="systems">Systems Thinking Approach</button></td>
+            <td>A clear systems diagram with insightful analysis of socio-ecological-technological components, showing feedback loops.</td>
+            <td class="rb-pts"><span class="rb-num">15</span></td></tr>
+        <tr><td><button class="fp2-link" type="button" data-rb="eco">Ecosystem Characteristics</button></td>
+            <td>Clearly explains the relevant ecosystem characteristics, cycles, properties, and services.</td>
+            <td class="rb-pts"><span class="rb-num">15</span></td></tr>
+        <tr><td><button class="fp2-link" type="button" data-rb="strat">Sustainability Strategies</button></td>
+            <td>Strategies or solutions built on at least one concept from class, with a clear conclusion.</td>
+            <td class="rb-pts"><span class="rb-num">20</span></td></tr>
+        <tr><td><button class="fp2-link" type="button" data-rb="research">Use of Research</button></td>
+            <td>Three or more peer-reviewed sources, synthesised rather than summarised.</td>
+            <td class="rb-pts"><span class="rb-num">10</span></td></tr>
+        <tr><td><button class="fp2-link" type="button" data-rb="pres">Presentation Organization &amp; Clarity</button></td>
+            <td>Engaging visuals, logical flow and transitions, strong narration &mdash; and your face on camera for at least two minutes.</td>
+            <td class="rb-pts"><span class="rb-num">25</span></td></tr>
+        <tr class="rb-total"><td colspan="2">Total</td><td class="rb-pts"><span class="rb-num">100</span></td></tr>
+      </tbody>
+    </table>
+    <p class="fp-cite">Source: SOS&nbsp;110, &ldquo;Final Video Presentation&rdquo; rubric (Canvas).</p>
+  </div>
+  <div class="footer">© 2023 W. W. Norton &amp; Company, Inc.</div>
+
+  <div class="fp2-modal" data-rbm hidden>
+    <div class="fp2-backdrop" data-rbm-close></div>
+    <div class="fp2-dialog" role="dialog" aria-modal="true" aria-labelledby="rbm-title">
+      <button class="fp2-x" type="button" data-rbm-close aria-label="Close">&times;</button>
+      <div class="fp2-eyebrow" data-rbm-pts></div>
+      <h3 class="fp2-title" id="rbm-title" data-rbm-title></h3>
+      <div class="fp2-body" data-rbm-body></div>
+    </div>
+  </div>
+
+  <script>(function(){
+    var root=document.currentScript.closest('.fp3-slide');
+    if(!root||root.dataset.wired)return; root.dataset.wired='1';
+    function lv(tier,band,txt){
+      return '<div class="rb-lv"><div class="rb-lv-h"><span class="rb-tier t-'+tier.toLowerCase()+'">'+tier+
+             '</span><span class="rb-band">'+band+'</span></div><p>'+txt+'</p></div>';
+    }
+    var R={
+      intro:{pts:'15 points', title:'Introduction &amp; Topic Selection', body:
+        lv('Excellent','15 &ndash; 12','Clear, original thesis; compelling sustainability issue; strong alignment with course concepts.')+
+        lv('Proficient','12 &ndash; 9','Thesis evident and relevant; sustainability issue addressed with moderate clarity.')+
+        lv('Developing','9 &ndash; 6','Thesis is vague or underdeveloped; topic lacks full alignment with the sustainability focus.')+
+        lv('Limited','6 &ndash; 0','Missing or unclear thesis; topic does not reflect sustainability objectives.')},
+      systems:{pts:'15 points', title:'Systems Thinking Approach', body:
+        lv('Excellent','15 &ndash; 12','Provides a clear systems diagram with insightful analysis of socio-ecological-technological components; shows feedback loops.')+
+        lv('Proficient','12 &ndash; 9','Includes a systems diagram with a general description; limited depth in the analysis.')+
+        lv('Developing','9 &ndash; 6','Systems thinking is mentioned but not clearly explained or visualised.')+
+        lv('Limited','6 &ndash; 0','Limited or no evidence of systems thinking in the discussion or in a diagram.')},
+      eco:{pts:'15 points', title:'Ecosystem Characteristics', body:
+        lv('Excellent','15 &ndash; 12','Clearly explains relevant ecosystem characteristics, cycles, properties, and services.')+
+        lv('Proficient','12 &ndash; 9','Explains some relevant ecosystem characteristics and services.')+
+        lv('Developing','9 &ndash; 6','Limited explanation of ecosystem characteristics and services.')+
+        lv('Limited','6 &ndash; 0','Ecosystem characteristics and services are not explained.')},
+      strat:{pts:'20 points', title:'Sustainability Strategies', body:
+        lv('Excellent','20 &ndash; 16','Presents a set of sustainability problem-solving strategies or solutions based on at least one concept covered in class, with a clear conclusion.')+
+        lv('Proficient','16 &ndash; 12','Presents sustainability strategies with a conclusion, but the connections to concepts learned in class could be stronger.')+
+        lv('Satisfactory','12 &ndash; 4','Presents some sustainability strategies, but the conclusion and the connections to course material are weak.')+
+        lv('Unsatisfactory','4 &ndash; 0','Sustainability strategies are not presented or concluded.')},
+      research:{pts:'10 points', title:'Use of Research', body:
+        lv('Excellent','10 &ndash; 8','Integrates three or more peer-reviewed sources effectively; demonstrates synthesis of findings rather than mere summary.')+
+        lv('Proficient','8 &ndash; 6','Uses the required three sources with limited synthesis; relies more on summarising.')+
+        lv('Developing','6 &ndash; 3','Only one or two sources; little integration of ideas; unclear connections.')+
+        lv('Limited','3 &ndash; 0','No peer-reviewed sources cited, or improper use of sources such as websites and AI-generated random references.')},
+      pres:{pts:'25 points', title:'Presentation Organization &amp; Clarity', body:
+        lv('Excellent','25 &ndash; 20','Highly engaging visuals; logical flow of ideas; clear transitions from one slide to the next; strong narration and delivery; face shown for at least 2 minutes.')+
+        lv('Proficient','20 &ndash; 15','Some visuals but with minimal effectiveness or clarity; mostly organised with occasional gaps; narration generally clear; face shown briefly.')+
+        lv('Developing','15 &ndash; 5','Visuals lack purpose or relevance; disorganised or hard to follow; weak narration or audio/video quality; face not clearly visible.')+
+        lv('Unsatisfactory','5 &ndash; 0','Poor or missing visuals; the video lacks coherence; disjointed structure; difficult to follow; no facial introduction.')}
+    };
+    var m=root.querySelector('[data-rbm]');
+    function open(k){ var d=R[k]; if(!d)return;
+      root.querySelector('[data-rbm-pts]').textContent=d.pts;
+      root.querySelector('[data-rbm-title]').innerHTML=d.title;
+      root.querySelector('[data-rbm-body]').innerHTML=d.body;
+      m.hidden=false; root.querySelector('.fp2-x').focus(); }
+    function close(){ m.hidden=true; }
+    root.querySelectorAll('[data-rb]').forEach(function(b){
+      b.addEventListener('click',function(e){ e.stopPropagation(); open(b.dataset.rb); }); });
+    root.querySelectorAll('[data-rbm-close]').forEach(function(b){
+      b.addEventListener('click',function(e){ e.stopPropagation(); close(); }); });
     document.addEventListener('keydown',function(e){
       if(m.hidden)return;
       if(e.key==='Escape'){ close(); e.stopPropagation(); e.preventDefault(); return; }
@@ -1510,7 +1648,7 @@ img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
 
 <div class="hud">
   <button onclick="prev()" title="Previous (left arrow)">&#8249;</button>
-  <span class="counter" id="counter">1 / 23</span>
+  <span class="counter" id="counter">1 / 24</span>
   <button onclick="next()" title="Next (right arrow)">&#8250;</button>
   <button onclick="toggleMenu()" title="Slide menu (O)">&#9776;</button>
   <button onclick="toggleFs()" title="Fullscreen (F)">&#9974;</button>
@@ -1519,7 +1657,7 @@ img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
 <div class="menu" id="menu">
   <button class="menu-close" onclick="toggleMenu(false)" aria-label="Close menu">&times;</button>
   <h3>Chapter 3 &mdash; Jump to a slide</h3>
-  <div class="menu-grid"><button class="menu-item" data-go="0"><span class="menu-num">1</span>Title</button><button class="menu-item" data-go="1"><span class="menu-num">2</span>Outline</button><button class="menu-item" data-go="2"><span class="menu-num">3</span>Announcements</button><button class="menu-item" data-go="3"><span class="menu-num">4</span>Final Project</button><button class="menu-item" data-go="4"><span class="menu-num">5</span>Final Project · Schedule</button><button class="menu-item" data-go="5"><span class="menu-num">6</span>Fact or Fiction 1</button><button class="menu-item" data-go="6"><span class="menu-num">7</span>Fact or Fiction 2</button><button class="menu-item" data-go="7"><span class="menu-num">8</span>Fact or Fiction 3</button><button class="menu-item" data-go="8"><span class="menu-num">9</span>Fact or Fiction 4</button><button class="menu-item" data-go="9"><span class="menu-num">10</span>3.1 Matter &amp; Atoms</button><button class="menu-item" data-go="10"><span class="menu-num">11</span>3.1 Inside an Atom</button><button class="menu-item" data-go="11"><span class="menu-num">12</span>3.1 ▶ Build an Atom</button><button class="menu-item" data-go="12"><span class="menu-num">13</span>3.2 Conservation of Mass</button><button class="menu-item" data-go="13"><span class="menu-num">14</span>3.3 Mining Plastic</button><button class="menu-item" data-go="14"><span class="menu-num">15</span>3.4 Forms of Energy</button><button class="menu-item" data-go="15"><span class="menu-num">16</span>3.4 Photosynthesis</button><button class="menu-item" data-go="16"><span class="menu-num">17</span>3.5 Thermodynamics</button><button class="menu-item" data-go="17"><span class="menu-num">18</span>3.5 ▶ Energy Calculator</button><button class="menu-item" data-go="18"><span class="menu-num">19</span>3.5 Efficiency</button><button class="menu-item" data-go="19"><span class="menu-num">20</span>3.5 Energy Flow</button><button class="menu-item" data-go="20"><span class="menu-num">21</span>3.6 Trophic Levels</button><button class="menu-item" data-go="21"><span class="menu-num">22</span>3.6 The 10% Rule</button><button class="menu-item" data-go="22"><span class="menu-num">23</span>3.7 What Can I Do?</button></div>
+  <div class="menu-grid"><button class="menu-item" data-go="0"><span class="menu-num">1</span>Title</button><button class="menu-item" data-go="1"><span class="menu-num">2</span>Outline</button><button class="menu-item" data-go="2"><span class="menu-num">3</span>Announcements</button><button class="menu-item" data-go="3"><span class="menu-num">4</span>Final Project</button><button class="menu-item" data-go="4"><span class="menu-num">5</span>Final Project · Schedule</button><button class="menu-item" data-go="5"><span class="menu-num">6</span>Final Project · Rubric</button><button class="menu-item" data-go="6"><span class="menu-num">7</span>Fact or Fiction 1</button><button class="menu-item" data-go="7"><span class="menu-num">8</span>Fact or Fiction 2</button><button class="menu-item" data-go="8"><span class="menu-num">9</span>Fact or Fiction 3</button><button class="menu-item" data-go="9"><span class="menu-num">10</span>Fact or Fiction 4</button><button class="menu-item" data-go="10"><span class="menu-num">11</span>3.1 Matter &amp; Atoms</button><button class="menu-item" data-go="11"><span class="menu-num">12</span>3.1 Inside an Atom</button><button class="menu-item" data-go="12"><span class="menu-num">13</span>3.1 ▶ Build an Atom</button><button class="menu-item" data-go="13"><span class="menu-num">14</span>3.2 Conservation of Mass</button><button class="menu-item" data-go="14"><span class="menu-num">15</span>3.3 Mining Plastic</button><button class="menu-item" data-go="15"><span class="menu-num">16</span>3.4 Forms of Energy</button><button class="menu-item" data-go="16"><span class="menu-num">17</span>3.4 Photosynthesis</button><button class="menu-item" data-go="17"><span class="menu-num">18</span>3.5 Thermodynamics</button><button class="menu-item" data-go="18"><span class="menu-num">19</span>3.5 ▶ Energy Calculator</button><button class="menu-item" data-go="19"><span class="menu-num">20</span>3.5 Efficiency</button><button class="menu-item" data-go="20"><span class="menu-num">21</span>3.5 Energy Flow</button><button class="menu-item" data-go="21"><span class="menu-num">22</span>3.6 Trophic Levels</button><button class="menu-item" data-go="22"><span class="menu-num">23</span>3.6 The 10% Rule</button><button class="menu-item" data-go="23"><span class="menu-num">24</span>3.7 What Can I Do?</button></div>
 </div>
 
 <script>
