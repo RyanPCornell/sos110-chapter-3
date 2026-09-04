@@ -1678,11 +1678,16 @@ img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
     <div class="cal-grid">
       <div class="cal-col" data-col="beef">
         <div class="cal-card">
-          <svg class="cal-icon" viewBox="0 0 64 64">
+          <svg class="cal-icon" data-ic="beef" viewBox="0 0 64 64">
             <path d="M16 24c4-8 16-12 26-9 9 3 12 12 8 20-4 8-16 12-26 9-9-3-12-12-8-20Z"/>
             <path d="M24 33c5-5 13-6 19-3"/>
           </svg>
-          <div class="cal-name">Beef</div>
+          <svg class="cal-icon" data-ic="chicken" viewBox="0 0 64 64" style="display:none">
+            <ellipse cx="41" cy="23" rx="14" ry="12" transform="rotate(-35 41 23)"/>
+            <path d="M30 34 22 42"/>
+            <circle cx="18.5" cy="45.5" r="4"/><circle cx="23" cy="49" r="3.6"/>
+          </svg>
+          <div class="cal-name" data-name>Beef</div>
           <div class="cal-basis" data-basis></div>
           <div class="cal-out"><b data-out></b> <span>kcal on your plate</span></div>
         </div>
@@ -1717,7 +1722,7 @@ img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
     <div class="cal-verdict" data-verdict></div>
     <div class="cal-foot">
       <div class="cal-dots" data-dots></div>
-      <p class="cal-cite">Calorie content: USDA FoodData Central (raw ground beef &asymp;250&nbsp;kcal/100&nbsp;g; raw potato &asymp;77&nbsp;kcal/100&nbsp;g). Feed-to-food conversion: Cassidy et&nbsp;al. (2013), <em>Environmental Research Letters</em> 8:034015 &mdash; beef returns about <b>3%</b> of its feed calories as food; corroborated by Shepon et&nbsp;al. (2016), <em>PNAS</em>. Potatoes are the crop itself, so essentially 1&nbsp;kcal in per 1&nbsp;kcal out.</p>
+      <p class="cal-cite">Calorie content: USDA FoodData Central (raw ground beef &asymp;250&nbsp;kcal/100&nbsp;g; raw potato &asymp;77&nbsp;kcal/100&nbsp;g). Feed-to-food conversion: Cassidy et&nbsp;al. (2013), <em>Environmental Research Letters</em> 8:034015 &mdash; beef returns about <b>3%</b> of its feed calories as food and chicken about <b>13%</b>; corroborated by Shepon et&nbsp;al. (2016), <em>PNAS</em>. Potatoes are the crop itself, so essentially 1&nbsp;kcal in per 1&nbsp;kcal out.</p>
     </div>
   </div>
   <div class="footer">© 2023 W. W. Norton &amp; Company, Inc.</div>
@@ -1725,34 +1730,47 @@ img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
   <script>(function(){
     var sec=document.getElementById('cal-io');
     if(!sec||sec.dataset.wired)return; sec.dataset.wired='1';
-    var N=3, step=0, backwards=false;
+    var N=4, step=0, backwards=false;
     var FWD=['ArrowRight','PageDown',' ','Spacebar'], BACK=['ArrowLeft','PageUp'];
-    var MODES={
-      kg:  {basis:'1 kilogram', beefOut:2500, plantOut:770,
-            beefIn:83000, plantIn:770,
-            beefLbl:'kcal of feed grown to produce it', plantLbl:'kcal of crop — it is the crop'},
-      kcal:{basis:'100 calories', beefOut:100, plantOut:100,
-            beefIn:3300, plantIn:100,
-            beefLbl:'kcal of feed grown to produce it', plantLbl:'kcal of crop — it is the crop'}
+    /* feed-to-food caloric conversion efficiency (Cassidy et al. 2013) */
+    var ANIM={
+      beef:   {name:'Beef',    eff:0.03, perKg:2500},
+      chicken:{name:'Chicken', eff:0.13, perKg:1650}
     };
+    var PLANT={perKg:770};
+    var STEPS=[
+      {an:'beef',    basis:'kg',   flows:false},
+      {an:'beef',    basis:'kg',   flows:true },
+      {an:'beef',    basis:'kcal', flows:true },
+      {an:'chicken', basis:'kcal', flows:true }
+    ];
     var HEADS=[
       'A Kilogram of Beef Really Does Hold More Calories',
       'But Look at What Had to Go In',
-      'Now Put the Same 100 Calories on Each Plate'
+      'Now Put the Same 100 Calories on Each Plate',
+      'Chicken Does Better — but the Gap Is Still There'
     ];
     var LEAD=[
       'Per kilogram, beef carries roughly three times the food energy of potatoes. That much is true &mdash; and it is where the confusion starts.',
       'But those calories had to come from somewhere. Cattle eat crops, and only about <b>3%</b> of that feed energy is returned as beef.',
-      'So hold the plate constant. For the <em>same 100 calories you eat</em>, beef pulled about <b>33&times;</b> more energy through the system.'
+      'So hold the plate constant. For the <em>same 100 calories you eat</em>, beef pulled about <b>33&times;</b> more energy through the system.',
+      'Chicken converts feed far more efficiently than cattle &mdash; about <b>13%</b> &mdash; so the same 100 calories costs roughly <b>770</b> instead of 3,300. Still about <b>8&times;</b> the potato.'
     ];
-    var VERDICT=['','', '100 kcal of beef &nbsp;&rarr;&nbsp; <b>3,300 kcal</b> of feed &nbsp;&nbsp;vs.&nbsp;&nbsp; 100 kcal of potato &nbsp;&rarr;&nbsp; <b>100 kcal</b> of crop'];
+    var VERDICT=['','',
+      '100 kcal of beef &nbsp;&rarr;&nbsp; <b>3,300 kcal</b> of feed &nbsp;&nbsp;vs.&nbsp;&nbsp; 100 kcal of potato &nbsp;&rarr;&nbsp; <b>100 kcal</b> of crop',
+      'Feed per 100 kcal eaten: &nbsp; beef <b>3,300</b> &nbsp;&rarr;&nbsp; chicken <b>770</b> &nbsp;&rarr;&nbsp; potato <b>100</b>'
+    ];
     var cols={beef:sec.querySelector('[data-col=beef]'), plant:sec.querySelector('[data-col=plant]')};
     var dotBox=sec.querySelector('[data-dots]');
     for(var i=0;i<N;i++){ var d=document.createElement('span'); d.className='cal-dot'; dotBox.appendChild(d); }
     var dots=dotBox.querySelectorAll('.cal-dot');
     var fmt=function(v){ return v.toLocaleString(); };
+    /* round the derived feed figures so they read as estimates, not false precision */
+    function tidy(v){ return v>=10000 ? Math.round(v/1000)*1000
+                          : v>=1000  ? Math.round(v/100)*100
+                          :            Math.round(v/10)*10; }
 
-    /* tapered ribbon rising into the card, arrowhead on top — after slide 21 */
+    /* tapered ribbon rising into the card, arrowhead on top - after slide 21 */
     function ribbon(w){
       var top=30, bot=130, cx=100, wt=Math.max(4,w*0.62);
       return 'M'+(cx-w)+' '+bot+' C'+(cx-w)+' 92 '+(cx-wt)+' 68 '+(cx-wt)+' '+top+
@@ -1763,11 +1781,18 @@ img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
 
     function show(i){
       step=Math.max(0,Math.min(N-1,i));
-      var m = step<2 ? MODES.kg : MODES.kcal;
-      var maxIn = Math.max(m.beefIn, m.plantIn);
-      [['beef',m.beefOut,m.beefIn,m.beefLbl],['plant',m.plantOut,m.plantIn,m.plantLbl]].forEach(function(r){
+      var st=STEPS[step], a=ANIM[st.an], kg=(st.basis==='kg');
+      var basisLbl = kg ? '1 kilogram' : '100 calories';
+      var animOut  = kg ? a.perKg : 100;
+      var animIn   = tidy(animOut / a.eff);
+      var plantOut = kg ? PLANT.perKg : 100;
+      var plantIn  = plantOut;                       /* the crop is its own input */
+      var maxIn    = Math.max(animIn, plantIn);
+      var rows=[['beef', animOut, animIn, 'kcal of feed grown to produce it'],
+                ['plant', plantOut, plantIn, 'kcal of crop — it is the crop']];
+      rows.forEach(function(r){
         var col=cols[r[0]];
-        col.querySelector('[data-basis]').textContent=m.basis;
+        col.querySelector('[data-basis]').textContent=basisLbl;
         col.querySelector('[data-out]').textContent=fmt(r[1]);
         col.querySelector('[data-in]').textContent=fmt(r[2]);
         col.querySelector('[data-inlbl]').textContent=r[3];
@@ -1775,13 +1800,18 @@ img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
         var w=Math.max(4, 46*Math.sqrt(r[2]/maxIn));
         col.querySelector('[data-rib]').setAttribute('d', ribbon(w));
         col.querySelector('[data-head]').setAttribute('d', head(w));
-        col.querySelector('[data-flow]').classList.toggle('on', step>=1);
+        col.querySelector('[data-flow]').classList.toggle('on', st.flows);
+      });
+      /* swap the animal identity */
+      cols.beef.querySelector('[data-name]').textContent=a.name;
+      cols.beef.querySelectorAll('[data-ic]').forEach(function(ic){
+        ic.style.display = (ic.dataset.ic===st.an) ? '' : 'none';
       });
       sec.querySelector('[data-cal-head]').textContent=HEADS[step];
       sec.querySelector('[data-cal-lead]').innerHTML=LEAD[step];
       var v=sec.querySelector('[data-verdict]');
       v.innerHTML=VERDICT[step]; v.classList.toggle('on', !!VERDICT[step]);
-      sec.classList.toggle('is-kcal', step>=2);
+      sec.classList.toggle('is-kcal', !kg);
       for(var k=0;k<dots.length;k++) dots[k].classList.toggle('on', k===step);
     }
 
@@ -4758,9 +4788,15 @@ show(start);
       const rounds=[]; for(let r=1;r<=R();r++){ const h=histFor(r); if(h) rounds.push({r:r,h:h}); }
       mixBox.hidden = rounds.length===0;
       if(!rounds.length) return;
-      const W=460, H=150, PADL=8, PADR=8, TOP=10, BASE=112;
+      const W=460, H=150, PADL=30, PADR=8, TOP=10, BASE=112;
       const n=rounds.length, slot=(W-PADL-PADR)/n, bw=Math.min(52, slot*0.62);
       let sv='';
+      // the columns are shares of the plants, so give them a real percentage axis
+      [0,0.25,0.5,0.75,1].forEach(function(f){
+        const y=(BASE-f*(BASE-TOP)).toFixed(1);
+        sv+='<path class="ins-grid" d="M'+PADL+' '+y+' H'+(W-PADR)+'"/>'
+          + '<text class="ins-axl" x="'+(PADL-5)+'" y="'+(+y+3.5).toFixed(1)+'" text-anchor="end">'+Math.round(f*100)+'%</text>';
+      });
       rounds.forEach(function(o,i){
         const h=o.h, m=h.mix||{}, tot=(m.comply||0)+(m.quiet||0)+(m.open||0);
         const x=PADL+i*slot+(slot-bw)/2;
