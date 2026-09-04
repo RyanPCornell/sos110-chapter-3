@@ -391,6 +391,61 @@ img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
 .tr-note{font-size:clamp(.64rem,1vw,.76rem); opacity:.9; margin-top:.15rem; white-space:nowrap;}
 @media (max-width:820px){ .tr-tier{width:100%!important;} }
 
+/* ═══ Calories in food vs. calories through the system (3 clicker steps) ═══ */
+.cal-inner{max-width:66rem; margin:0 auto; width:100%; display:flex; flex-direction:column;}
+.cal-head{font-size:clamp(1.25rem,2.6vw,1.95rem);}
+.cal-inner .eyebrow em{font-style:italic; text-transform:none;}
+.cal-lead{font-size:clamp(.84rem,1.34vw,1rem); line-height:1.5; color:var(--muted);
+  max-width:78ch; margin:.1rem 0 .5rem; min-height:2.6em;}
+.cal-lead b{color:var(--ink,#15201b);} .cal-lead em{font-style:italic;}
+.cal-grid{display:grid; grid-template-columns:1fr 1fr; gap:clamp(1.2rem,4vw,3.4rem);
+  flex:1; min-height:0; align-items:start; cursor:pointer;}
+.cal-col{display:flex; flex-direction:column; align-items:center; min-width:0;}
+/* the food card */
+.cal-card{width:100%; background:#fff; border:1px solid var(--line); border-top:4px solid var(--accent);
+  border-radius:14px; padding:.7rem 1rem .8rem; text-align:center; box-shadow:var(--shadow);}
+.cal-col[data-col=beef] .cal-card{border-top-color:#A4373A;}
+.cal-icon{width:clamp(38px,5vw,52px); height:clamp(38px,5vw,52px); display:block; margin:0 auto .2rem;
+  fill:none; stroke:currentColor; stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round; color:#2D6A4F;}
+.cal-col[data-col=beef] .cal-icon{color:#A4373A;}
+.cal-name{font-family:'Merriweather',serif; font-weight:800; font-size:clamp(1rem,1.8vw,1.3rem); color:var(--forest);}
+.cal-basis{font-family:'Inter',sans-serif; font-size:clamp(.64rem,1.02vw,.76rem); font-weight:700;
+  letter-spacing:.07em; text-transform:uppercase; color:var(--muted); margin:.1rem 0 .35rem;
+  transition:color .25s;}
+.slide.cal-slide.is-kcal .cal-basis{color:#8a6a2f;}
+.cal-out b{font-family:'Merriweather',serif; font-weight:900; font-size:clamp(1.5rem,3.2vw,2.4rem);
+  line-height:1; color:#2D6A4F;}
+.cal-col[data-col=beef] .cal-out b{color:#A4373A;}
+.cal-out span{display:block; font-size:clamp(.64rem,1.02vw,.76rem); color:var(--muted); margin-top:.15rem;}
+/* the input flow underneath */
+.cal-flow{width:100%; opacity:0; transform:translateY(-6px); transition:opacity .35s ease, transform .35s ease;
+  pointer-events:none;}
+.cal-flow.on{opacity:1; transform:none;}
+.cal-arrow{width:100%; height:clamp(78px,13vh,124px); display:block;}
+.cal-rib{fill:#8fb3a3; stroke:#2D6A4F; stroke-width:1.2; opacity:.9;}
+.cal-head{fill:#2D6A4F;}
+.cal-col[data-col=beef] .cal-rib{fill:#c98f91; stroke:#A4373A;}
+.cal-col[data-col=beef] .cal-head{fill:#A4373A;}
+.cal-in{text-align:center; margin-top:.15rem;}
+.cal-in b{font-family:'Merriweather',serif; font-weight:900; font-size:clamp(1.05rem,2.2vw,1.6rem); color:#2D6A4F;}
+.cal-col[data-col=beef] .cal-in b{color:#A4373A;}
+.cal-in span{display:block; font-size:clamp(.62rem,1vw,.74rem); color:var(--muted); line-height:1.3; margin-top:.1rem;}
+/* the closing line */
+.cal-verdict{text-align:center; font-size:clamp(.78rem,1.28vw,.96rem); color:var(--forest);
+  background:#f2f8f4; border:1px solid var(--line); border-radius:10px;
+  padding:.5rem .8rem; margin:.5rem auto 0; max-width:64rem;
+  opacity:0; transform:translateY(4px); transition:opacity .3s ease, transform .3s ease;}
+.cal-verdict.on{opacity:1; transform:none;}
+.cal-verdict b{font-family:'Merriweather',serif; color:#A4373A;}
+/* footer + step dots */
+.cal-foot{margin-top:.5rem;}
+.cal-dots{display:flex; gap:.4rem; justify-content:center; margin-bottom:.4rem;}
+.cal-dot{width:8px; height:8px; border-radius:50%; background:var(--line); cursor:pointer; transition:all .18s;}
+.cal-dot.on{background:var(--accent); transform:scale(1.25);}
+.cal-cite{font-size:clamp(.56rem,.9vw,.68rem); color:#7e8c85; line-height:1.45; text-align:center;
+  max-width:120ch; margin:0 auto; font-style:italic; border-top:1px solid var(--line); padding-top:.35rem;}
+@media (max-width:820px){ .cal-grid{grid-template-columns:1fr 1fr; gap:1rem;} }
+
 .gcard-icon{width:48px; height:48px; color:var(--accent); margin:0 0 10px;}
 .gcard-icon svg{width:100%; height:100%; display:block;}
 .grid.cols-5{grid-template-columns:repeat(5,1fr);}
@@ -1614,6 +1669,150 @@ img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
     render();
   })();</script>
 </section>
+<section class="slide cal-slide" data-type="content" id="cal-io" style="--accent:#2D6A4F">
+  <div class="slide-inner col cal-inner">
+    <div class="eyebrow">3.6 &middot; Calories <em>in</em> Food vs. Calories <em>through</em> the System</div>
+    <h2 class="heading cal-head" data-cal-head>A Kilogram of Beef Really Does Hold More Calories</h2>
+    <p class="cal-lead" data-cal-lead></p>
+
+    <div class="cal-grid">
+      <div class="cal-col" data-col="beef">
+        <div class="cal-card">
+          <svg class="cal-icon" viewBox="0 0 64 64">
+            <path d="M16 24c4-8 16-12 26-9 9 3 12 12 8 20-4 8-16 12-26 9-9-3-12-12-8-20Z"/>
+            <path d="M24 33c5-5 13-6 19-3"/>
+          </svg>
+          <div class="cal-name">Beef</div>
+          <div class="cal-basis" data-basis></div>
+          <div class="cal-out"><b data-out></b> <span>kcal on your plate</span></div>
+        </div>
+        <div class="cal-flow" data-flow>
+          <svg class="cal-arrow" viewBox="0 0 200 132" preserveAspectRatio="xMidYMax meet">
+            <path class="cal-rib" data-rib d=""/><path class="cal-head" data-head d=""/>
+          </svg>
+          <div class="cal-in"><b data-in></b> <span data-inlbl></span></div>
+        </div>
+      </div>
+
+      <div class="cal-col" data-col="plant">
+        <div class="cal-card">
+          <svg class="cal-icon" viewBox="0 0 64 64">
+            <ellipse cx="32" cy="34" rx="20" ry="15" transform="rotate(-12 32 34)"/>
+            <circle cx="24" cy="30" r="1.7" fill="currentColor"/><circle cx="35" cy="27" r="1.7" fill="currentColor"/>
+            <circle cx="29" cy="39" r="1.7" fill="currentColor"/><circle cx="41" cy="35" r="1.7" fill="currentColor"/>
+          </svg>
+          <div class="cal-name">Potatoes</div>
+          <div class="cal-basis" data-basis></div>
+          <div class="cal-out"><b data-out></b> <span>kcal on your plate</span></div>
+        </div>
+        <div class="cal-flow" data-flow>
+          <svg class="cal-arrow" viewBox="0 0 200 132" preserveAspectRatio="xMidYMax meet">
+            <path class="cal-rib" data-rib d=""/><path class="cal-head" data-head d=""/>
+          </svg>
+          <div class="cal-in"><b data-in></b> <span data-inlbl></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cal-verdict" data-verdict></div>
+    <div class="cal-foot">
+      <div class="cal-dots" data-dots></div>
+      <p class="cal-cite">Calorie content: USDA FoodData Central (raw ground beef &asymp;250&nbsp;kcal/100&nbsp;g; raw potato &asymp;77&nbsp;kcal/100&nbsp;g). Feed-to-food conversion: Cassidy et&nbsp;al. (2013), <em>Environmental Research Letters</em> 8:034015 &mdash; beef returns about <b>3%</b> of its feed calories as food; corroborated by Shepon et&nbsp;al. (2016), <em>PNAS</em>. Potatoes are the crop itself, so essentially 1&nbsp;kcal in per 1&nbsp;kcal out.</p>
+    </div>
+  </div>
+  <div class="footer">© 2023 W. W. Norton &amp; Company, Inc.</div>
+
+  <script>(function(){
+    var sec=document.getElementById('cal-io');
+    if(!sec||sec.dataset.wired)return; sec.dataset.wired='1';
+    var N=3, step=0, backwards=false;
+    var FWD=['ArrowRight','PageDown',' ','Spacebar'], BACK=['ArrowLeft','PageUp'];
+    var MODES={
+      kg:  {basis:'1 kilogram', beefOut:2500, plantOut:770,
+            beefIn:83000, plantIn:770,
+            beefLbl:'kcal of feed grown to produce it', plantLbl:'kcal of crop — it is the crop'},
+      kcal:{basis:'100 calories', beefOut:100, plantOut:100,
+            beefIn:3300, plantIn:100,
+            beefLbl:'kcal of feed grown to produce it', plantLbl:'kcal of crop — it is the crop'}
+    };
+    var HEADS=[
+      'A Kilogram of Beef Really Does Hold More Calories',
+      'But Look at What Had to Go In',
+      'Now Put the Same 100 Calories on Each Plate'
+    ];
+    var LEAD=[
+      'Per kilogram, beef carries roughly three times the food energy of potatoes. That much is true &mdash; and it is where the confusion starts.',
+      'But those calories had to come from somewhere. Cattle eat crops, and only about <b>3%</b> of that feed energy is returned as beef.',
+      'So hold the plate constant. For the <em>same 100 calories you eat</em>, beef pulled about <b>33&times;</b> more energy through the system.'
+    ];
+    var VERDICT=['','', '100 kcal of beef &nbsp;&rarr;&nbsp; <b>3,300 kcal</b> of feed &nbsp;&nbsp;vs.&nbsp;&nbsp; 100 kcal of potato &nbsp;&rarr;&nbsp; <b>100 kcal</b> of crop'];
+    var cols={beef:sec.querySelector('[data-col=beef]'), plant:sec.querySelector('[data-col=plant]')};
+    var dotBox=sec.querySelector('[data-dots]');
+    for(var i=0;i<N;i++){ var d=document.createElement('span'); d.className='cal-dot'; dotBox.appendChild(d); }
+    var dots=dotBox.querySelectorAll('.cal-dot');
+    var fmt=function(v){ return v.toLocaleString(); };
+
+    /* tapered ribbon rising into the card, arrowhead on top — after slide 21 */
+    function ribbon(w){
+      var top=30, bot=130, cx=100, wt=Math.max(4,w*0.62);
+      return 'M'+(cx-w)+' '+bot+' C'+(cx-w)+' 92 '+(cx-wt)+' 68 '+(cx-wt)+' '+top+
+             ' L'+(cx+wt)+' '+top+' C'+(cx+wt)+' 68 '+(cx+w)+' 92 '+(cx+w)+' '+bot+' Z';
+    }
+    function head(w){ var top=30, wt=Math.max(4,w*0.62)+7;
+      return 'M'+(100-wt)+' '+(top+1)+' L100 '+(top-17)+' L'+(100+wt)+' '+(top+1)+' Z'; }
+
+    function show(i){
+      step=Math.max(0,Math.min(N-1,i));
+      var m = step<2 ? MODES.kg : MODES.kcal;
+      var maxIn = Math.max(m.beefIn, m.plantIn);
+      [['beef',m.beefOut,m.beefIn,m.beefLbl],['plant',m.plantOut,m.plantIn,m.plantLbl]].forEach(function(r){
+        var col=cols[r[0]];
+        col.querySelector('[data-basis]').textContent=m.basis;
+        col.querySelector('[data-out]').textContent=fmt(r[1]);
+        col.querySelector('[data-in]').textContent=fmt(r[2]);
+        col.querySelector('[data-inlbl]').textContent=r[3];
+        /* square-root scale: a linear one would make the potato invisible */
+        var w=Math.max(4, 46*Math.sqrt(r[2]/maxIn));
+        col.querySelector('[data-rib]').setAttribute('d', ribbon(w));
+        col.querySelector('[data-head]').setAttribute('d', head(w));
+        col.querySelector('[data-flow]').classList.toggle('on', step>=1);
+      });
+      sec.querySelector('[data-cal-head]').textContent=HEADS[step];
+      sec.querySelector('[data-cal-lead]').innerHTML=LEAD[step];
+      var v=sec.querySelector('[data-verdict]');
+      v.innerHTML=VERDICT[step]; v.classList.toggle('on', !!VERDICT[step]);
+      sec.classList.toggle('is-kcal', step>=2);
+      for(var k=0;k<dots.length;k++) dots[k].classList.toggle('on', k===step);
+    }
+
+    for(var d2=0; d2<dots.length; d2++){
+      (function(i){ dots[i].addEventListener('click', function(){ show(i); }); })(d2);
+    }
+    sec.querySelector('.cal-grid').addEventListener('click', function(){ if(step<N-1) show(step+1); });
+
+    /* capture phase: swallow the clicker key while steps remain, then fall
+       through so the deck advances to the next slide as normal */
+    document.addEventListener('keydown', function(e){
+      if(FWD.indexOf(e.key)>-1) backwards=false;
+      else if(BACK.indexOf(e.key)>-1) backwards=true;
+      if(!sec.classList.contains('active')) return;
+      if(FWD.indexOf(e.key)>-1 && step<N-1){ e.preventDefault(); e.stopPropagation(); show(step+1); }
+      else if(BACK.indexOf(e.key)>-1 && step>0){ e.preventDefault(); e.stopPropagation(); show(step-1); }
+    }, true);
+
+    /* Only reset on a real inactive -> active transition. show() itself toggles
+       `is-kcal` on this same element, so an unguarded observer would re-enter
+       and snap the step back to 0 on every click. */
+    var wasActive = sec.classList.contains('active');
+    new MutationObserver(function(){
+      var now = sec.classList.contains('active');
+      if(now && !wasActive) show(backwards ? N-1 : 0);
+      wasActive = now;
+    }).observe(sec, {attributes:true, attributeFilter:['class']});
+
+    show(0);
+  })();</script>
+</section>
 <section class="slide asu37" data-type="content">
   <div class="asu37-topbar"></div>
   <div class="slide-inner col asu37-inner">
@@ -1648,7 +1847,7 @@ img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
 
 <div class="hud">
   <button onclick="prev()" title="Previous (left arrow)">&#8249;</button>
-  <span class="counter" id="counter">1 / 24</span>
+  <span class="counter" id="counter">1 / 25</span>
   <button onclick="next()" title="Next (right arrow)">&#8250;</button>
   <button onclick="toggleMenu()" title="Slide menu (O)">&#9776;</button>
   <button onclick="toggleFs()" title="Fullscreen (F)">&#9974;</button>
@@ -1657,7 +1856,7 @@ img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
 <div class="menu" id="menu">
   <button class="menu-close" onclick="toggleMenu(false)" aria-label="Close menu">&times;</button>
   <h3>Chapter 3 &mdash; Jump to a slide</h3>
-  <div class="menu-grid"><button class="menu-item" data-go="0"><span class="menu-num">1</span>Title</button><button class="menu-item" data-go="1"><span class="menu-num">2</span>Outline</button><button class="menu-item" data-go="2"><span class="menu-num">3</span>Announcements</button><button class="menu-item" data-go="3"><span class="menu-num">4</span>Final Project</button><button class="menu-item" data-go="4"><span class="menu-num">5</span>Final Project · Schedule</button><button class="menu-item" data-go="5"><span class="menu-num">6</span>Final Project · Rubric</button><button class="menu-item" data-go="6"><span class="menu-num">7</span>Fact or Fiction 1</button><button class="menu-item" data-go="7"><span class="menu-num">8</span>Fact or Fiction 2</button><button class="menu-item" data-go="8"><span class="menu-num">9</span>Fact or Fiction 3</button><button class="menu-item" data-go="9"><span class="menu-num">10</span>Fact or Fiction 4</button><button class="menu-item" data-go="10"><span class="menu-num">11</span>3.1 Matter &amp; Atoms</button><button class="menu-item" data-go="11"><span class="menu-num">12</span>3.1 Inside an Atom</button><button class="menu-item" data-go="12"><span class="menu-num">13</span>3.1 ▶ Build an Atom</button><button class="menu-item" data-go="13"><span class="menu-num">14</span>3.2 Conservation of Mass</button><button class="menu-item" data-go="14"><span class="menu-num">15</span>3.3 Mining Plastic</button><button class="menu-item" data-go="15"><span class="menu-num">16</span>3.4 Forms of Energy</button><button class="menu-item" data-go="16"><span class="menu-num">17</span>3.4 Photosynthesis</button><button class="menu-item" data-go="17"><span class="menu-num">18</span>3.5 Thermodynamics</button><button class="menu-item" data-go="18"><span class="menu-num">19</span>3.5 ▶ Energy Calculator</button><button class="menu-item" data-go="19"><span class="menu-num">20</span>3.5 Efficiency</button><button class="menu-item" data-go="20"><span class="menu-num">21</span>3.5 Energy Flow</button><button class="menu-item" data-go="21"><span class="menu-num">22</span>3.6 Trophic Levels</button><button class="menu-item" data-go="22"><span class="menu-num">23</span>3.6 The 10% Rule</button><button class="menu-item" data-go="23"><span class="menu-num">24</span>3.7 What Can I Do?</button></div>
+  <div class="menu-grid"><button class="menu-item" data-go="0"><span class="menu-num">1</span>Title</button><button class="menu-item" data-go="1"><span class="menu-num">2</span>Outline</button><button class="menu-item" data-go="2"><span class="menu-num">3</span>Announcements</button><button class="menu-item" data-go="3"><span class="menu-num">4</span>Final Project</button><button class="menu-item" data-go="4"><span class="menu-num">5</span>Final Project · Schedule</button><button class="menu-item" data-go="5"><span class="menu-num">6</span>Final Project · Rubric</button><button class="menu-item" data-go="6"><span class="menu-num">7</span>Fact or Fiction 1</button><button class="menu-item" data-go="7"><span class="menu-num">8</span>Fact or Fiction 2</button><button class="menu-item" data-go="8"><span class="menu-num">9</span>Fact or Fiction 3</button><button class="menu-item" data-go="9"><span class="menu-num">10</span>Fact or Fiction 4</button><button class="menu-item" data-go="10"><span class="menu-num">11</span>3.1 Matter &amp; Atoms</button><button class="menu-item" data-go="11"><span class="menu-num">12</span>3.1 Inside an Atom</button><button class="menu-item" data-go="12"><span class="menu-num">13</span>3.1 ▶ Build an Atom</button><button class="menu-item" data-go="13"><span class="menu-num">14</span>3.2 Conservation of Mass</button><button class="menu-item" data-go="14"><span class="menu-num">15</span>3.3 Mining Plastic</button><button class="menu-item" data-go="15"><span class="menu-num">16</span>3.4 Forms of Energy</button><button class="menu-item" data-go="16"><span class="menu-num">17</span>3.4 Photosynthesis</button><button class="menu-item" data-go="17"><span class="menu-num">18</span>3.5 Thermodynamics</button><button class="menu-item" data-go="18"><span class="menu-num">19</span>3.5 ▶ Energy Calculator</button><button class="menu-item" data-go="19"><span class="menu-num">20</span>3.5 Efficiency</button><button class="menu-item" data-go="20"><span class="menu-num">21</span>3.5 Energy Flow</button><button class="menu-item" data-go="21"><span class="menu-num">22</span>3.6 Trophic Levels</button><button class="menu-item" data-go="22"><span class="menu-num">23</span>3.6 The 10% Rule</button><button class="menu-item" data-go="23"><span class="menu-num">24</span>3.6 Calories In vs. Through</button><button class="menu-item" data-go="24"><span class="menu-num">25</span>3.7 What Can I Do?</button></div>
 </div>
 
 <script>
